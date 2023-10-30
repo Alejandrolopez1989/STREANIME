@@ -1,0 +1,63 @@
+@font-face {
+    font-family: 'Monoton';
+    src: url('fonts/Monoton-Regular.ttf') format('truetype');
+    /* Reemplaza 'ruta/al/monoton.ttf' con la ruta real hacia tu archivo de fuente */
+    /* También puedes incluir otros formatos de fuente como .woff o .otf si están disponibles */
+  }
+
+  body {
+    background-color: #080808; /* Cambia el color de fondo del body a gris */
+  }
+
+.container {
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #080808;
+    border-radius: 5px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  h1 {
+    text-align: center;
+    color: #e70634; /* Cambia el color del texto */
+    font-family: 'Monoton', sans-serif;
+  }
+  
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  button {
+    width: 100%;
+    padding: 10px;
+    background: #c82525;
+    color: #ffffff;
+    border: 1px solid #df1425a9;
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    transition: all ease 0.3s;
+  }
+  
+  button:hover {
+    background-color: #e20000;
+    transition: all ease 0.3s;
+    box-shadow: inset 0 0 20px rgba(49, 138, 172, 0.5), 0 0 20px rgba(49, 138, 172, 0.4);
+    outline-color: rgba(49, 138, 172, 0);
+    outline-offset: 80px;
+    text-shadow: 1px 1px 6px #fff;
+  }
+
+  body {
+    background-color: #080808; /* Cambia el color de fondo del body a gris */
+  }
