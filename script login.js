@@ -9,8 +9,8 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
     var users = [
       { username: "keonex", password: "alejandro89" },
       { username: "Eduard", password: "0524" },
-      { username: "usuario3", password: "contraseña3" },
-      { username: "usuario4", password: "contraseña4" }
+      { username: "Taer", password: "karerine05" },
+      { username: "Jinx", password: "jinxjx" }
     ];
   
     // Verifica si el usuario y la contraseña coinciden con los datos almacenados
