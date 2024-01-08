@@ -1,0 +1,182 @@
+<!--doctype html-->
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--==Title==================================-->
+    <title>STREANIME-La Princesa Mononoke-1997</title>
+    <!--Stylesheet(CSS)==========================-->
+    <link rel="stylesheet" href="../style streanime.css" />
+    <!--==Fav-icon===============================-->
+    <link rel="shortcut icon" href="../PROYECTO YOUTUBE/Images/Images/fav-icon.png" />
+    <!--==Import-poppins-font====================-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <!--==Import-Monoton-Font====================-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
+    <!--==Using-Font-Awesome======================-->
+    <script src="https://kit.fontawesome.com/c8e4d183c2.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <!--==Navigation===================================-->
+    <nav class="navigation">
+        <!--menu-btn--------------->
+        <input type="checkbox" class="menu-btn" id="menu-btn">
+        <label for="menu-btn" class="menu-icon">
+            <span class="nav-icon"></span>
+        </label>
+        <!--logo------------------->
+        <a href="../index.html" class="logo">
+            streanime<span><b>La Princesa Mononoke-1997</b></span>
+        </a>
+        <!--menu------------------->
+        <ul class="menu">
+            <li><a href="../index.html">Inicio</a></li>
+            <li><a href="../TODOS LOS ANIMES.html">ANIMES</a></li>
+            <li><a href="../TODAS LAS PELICULAS.html">PELICULAS</a></li>
+            <li><a href="PELICULAS GHIBLI.html">ESTUDIO GHIBLI</a></li>
+            <li><a href="https://t.me/TVFLIXAPP">CONTACTAME</a></li>
+        </ul>
+        <!--Search-box------------->
+        <form action="../BUSCADOR STREANIME.html" class="search-box" method="get">
+            <button type="submit"><i class="fas fa-search"></i><b>BUSCAR</b></button>
+        </form>
+    </nav>
+    <!--nav-end-->
+    <!--==Movie-Banner=========================================-->
+    <section class="movie-banner">
+        <!--==img==================================-->
+        <div class="m-banner-img">
+            <img src="../images/La princesa mononoke H.jpg" alt="">
+        </div>
+        <!--content================================-->
+        <div class="banner-container">
+            <!--title-container*******************----->
+            <div class="title-container">
+                <!--title-top===============-->
+                <div class="title-top">
+                    <!--title----->
+                    <div class="movie-title">
+                        <h1>La Princesa Mononoke (1997)</h1>
+                    </div><br>
+                    <!--more-about-movie-->
+                    <div class="more-about-movie">
+                        <span class="sinopsis"><b>SINOPSIS</b></span>
+                        <span>Con el fin de curar la herida que le ha causado un jabalí enloquecido, el joven Ashitaka
+                            sale en busca del dios Ciervo, pues sólo él puede liberarlo del sortilegio. A lo largo de su
+                            periplo descubre cómo los animales del bosque luchan contra hombres que están dispuestos a
+                            destruir la Naturaleza. </span>
+                    </div>
+                    <!--language--------->
+                    <div class="language">
+                        <span><b>ESPAÑOL LATINO</b></span>
+                    </div><br>
+                </div>
+                <!--Title-botttom==========================-->
+                <div class="title-bottom">
+                    <!--category------->
+                    <div class="category">
+                        <strong><b>Category (Studio Ghibli)</b></strong><br /><br>
+                        <a href="#"><b>Animación,</b></a><a href="#"><b> Fantástico,</b></a><a
+                            href="#"><b>Aventuras</b></a>
+                    </div>
+                    <!--pelicula-btn---->
+                    <a href="https://terabox1024.com/sharing/embed?surl=UzMS2pk8dW_Z_BG8ewW-Yw" class="watch-btn"><b>Ver
+                            Película</b></a>
+                </div>
+            </div>
+            <!--play-btn******************************--->
+
+            <!--Video/full-Movie***************************-->
+
+            <!--movie------->
+        </div>
+    </section><br><br><br><br><br>
+    <!--Banner-end------------->
+    <!--details=====================================
+    <section class="movie-details">
+        <strong>Pirates of the Caribean: Salazar's Revenge</strong>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, veniam architecto, debitis quia similique
+            adipisci autem quod eligendi delectus dolorum iusto. Eius, nobis ducimus! Corrupti nobis id itaque facere a.
+        </p>
+    </section>-->
+
+    <!--==footer==============================-->
+    <footer>
+        <!--footer-logo--->
+        <a href="index.html" class="logo">
+            STREANIME<span><b>La Princesa Mononoke-1997</b></span>
+        </a>
+        <!--copyright----->
+        <span class="copyright">
+            Copyright 2024 - STREANIME
+        </span>
+    </footer>
+    <!--==jQuery=======================================-->
+    <script src="../swiper-bundle.min.js"></script>
+    <script>
+        /*==scroll-progress-bar======================*/
+        let scrollPrecentage = () => {
+            let scrollProgress = document.getElementById("progress");
+            let progressValue = document.getElementById("progress-value");
+            let pos = document.documentElement.scrollTop;
+            let calcHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrollValue = Math.round(pos * 100 / calcHeight);
+            scrollProgress.style.background = `conic-gradient(#e70634 ${scrollValue}%, #2b2f38 ${scrollValue}%)`;
+        }
+        window.onscroll = scrollPrecentage;
+        window.onload = scrollPrecentage;
+        /*--menu-btn-fixed-when-scroll============*/
+        $(window).scroll(function () {
+            if ($(document).scrollTop() > 20) {
+                $('.navigation').addClass('fix-icon');
+            }
+            else {
+                $('.navigation').removeClass('fix-icon');
+            }
+        });
+        /*==popup-open==================================*/
+        $(document).on('click', '.play-btn a', function () {
+            $('.play').addClass('active-popup');
+        });
+        /*==popup-Close==================================*/
+        $(document).on('click', '.close-movie', function () {
+            $('.play').removeClass('active-popup');
+        });
+        /*==auto-play-when-popup-open===================*/
+        $('.play-btn a').click(function () {
+            $('#m-video')[0].play();
+        });
+        /*==Close-video-when-poppup-close==============*/
+        $('.close-movie').click(function () {
+            $('#m-video')[0].pause();
+        });
+    </script>
+
+    <script>
+        function searchOnPage(event) {
+            event.preventDefault();
+
+            var searchText = document.getElementById('searchInput').value.toLowerCase();
+            var elements = document.getElementsByTagName('*');
+
+            for (var i = 0; i < elements.length; i++) {
+                var elementText = elements[i].textContent.toLowerCase();
+                if (elementText.indexOf(searchText) !== -1) {
+                    elements[i].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    break; // Detiene el bucle después de encontrar la primera coincidencia
+                }
+            }
+        }
+
+    </script>
+</body>
+
+</html>
