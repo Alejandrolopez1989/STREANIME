@@ -592,6 +592,12 @@
             margin: 0px;
         }
 
+        .buscador {
+            position: absolute;
+            top: 30px;
+            right: 10px;
+        }
+
         .search-box {
             grid-column-start: 1;
             grid-column-end: 3;
