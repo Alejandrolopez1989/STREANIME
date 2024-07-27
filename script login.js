@@ -8,7 +8,8 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
     // Define un objeto o un array con los usuarios y contraseñas permitidos
     var users = [
       { username: "Keonex", password: "alejandro89" },    
-      { username: "Odalys", password: "odyns628" },        
+      { username: "Odalys", password: "odyns628" },
+      { username: "Owedg", password: "1234" },                
       { username: "Tonmy", password: "katerine89" }
     ];
   
