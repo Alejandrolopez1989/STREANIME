@@ -625,20 +625,7 @@
             left: 10px;
             top: 0px;
             border-radius: 4px;
-        }
-
-       .more-about-movie .sinopsis {
-            background-color: #4b4b4b;
-            color: #ffffff;
-            font-weight: 600;
-            padding: 0px 5px;
-            height: 25px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+        }       
 
     }
 
