@@ -1,3 +1,16 @@
+function togglePassword() {
+  const passwordInput = document.getElementById("password");
+  const passwordToggle = document.querySelector(".toggle-password");
+
+  if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+      passwordToggle.textContent = "🙈"; // Cambia el icono cuando se muestra la contraseña
+  } else {
+      passwordInput.type = "password";
+      passwordToggle.textContent = "👁️"; // Cambia el icono cuando se oculta la contraseña
+  }
+}
+
 document.getElementById("loginForm").addEventListener("submit", function(event) {
   event.preventDefault(); // Evita el envío del formulario
 
