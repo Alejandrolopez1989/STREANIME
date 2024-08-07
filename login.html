@@ -2,17 +2,57 @@
 <html>
 <head>
   <title>Página de inicio de sesión</title>
-  <link rel="stylesheet" type="text/css" href="style login.css">  
+  <link rel="stylesheet" type="text/css" href="style login.css">
+  <style>
+    .container {
+        width: 300px;
+        margin: auto;
+        text-align: center;
+    }
+
+    .input-field {
+        width: calc(100% - 20px); /* Ajusta el ancho para dejar espacio al icono */
+        padding: 10px;
+        margin-bottom: 5px; /* Reduce el margen entre los campos */
+        box-sizing: border-box; /* Asegura que el padding y el border no afecten al ancho total */
+        display: flex; /* Usa flex para alinear el contenido */
+        align-items: center; /* Centra el contenido verticalmente */
+    }
+
+    .password-container {
+        position: relative;
+        width: 100%;
+    }
+
+    .password-container input {
+        flex-grow: 1; /* Permite que el input ocupe el espacio disponible */
+        border: none;
+        outline: none;
+    }
+
+    #loginForm .password-container .toggle-password {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        font-size: 20px; /* Ajusta el tamaño del icono si es necesario */
+        line-height: 1; /* Asegura que el icono no tenga margen extra */
+    }
+</style>  
 </head>
 <body>
   <div class="container">
     <h1>Iniciar sesión</h1>
     <form id="loginForm">
-      <input type="text" id="username" placeholder="Nombre de usuario" required>
-      <input type="password" id="password" placeholder="Contraseña" required>
-      <button type="submit">Iniciar sesión</button>
+        <input type="text" id="username" class="input-field" placeholder="Nombre de usuario" required>
+        <div class="password-container">
+            <input type="password" id="password" class="input-field" placeholder="Contraseña" required>
+            <span class="toggle-password" onclick="togglePassword()">👁️</span>
+        </div>
+        <button type="submit">Iniciar sesión</button>
     </form>
-  </div>
+</div>
 
   <script src="script login.js"></script>
 </body>
