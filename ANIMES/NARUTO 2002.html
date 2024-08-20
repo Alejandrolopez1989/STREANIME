@@ -21,7 +21,150 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
     <!--==Using-Font-Awesome======================-->
-    <script src="https://kit.fontawesome.com/c8e4d183c2.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .status {
+            margin-left: auto;
+            color: #e70634;
+            font-weight: bold;
+            display: inline-block;
+            white-space: nowrap;
+             
+        }        
+  
+        .accordion {
+            width: 100%;
+            max-width: 384px;
+            margin: 30px auto 20px;
+            background: #080800;
+            border-radius: 4px; /* Ajustado a 4px para hacer juego con el botón */
+            box-shadow: 0 4px 12px rgba(231, 6, 52, 0.5);
+        }
+  
+        .accordion :hover {
+            background-color: #e20000;
+            transition: all ease 0.2s;
+            box-shadow: inset 0 0 20px rgba(49, 138, 172, 0.5), 0 0 20px rgba(49, 138, 172, 0.4);
+            outline-color: rgba(49, 138, 172, 0);
+            outline-offset: 80px;
+            text-shadow: 1px 1px 6px #fff;
+        }
+  
+        .accordion .link {
+            cursor: pointer;
+            display: block;
+            padding: 15px 15px 15px 42px;
+            color: #e70634;
+            font-size: 16px;
+            font-weight: 700;
+            border-bottom: 1px solid #e70634;
+            position: relative;
+            -webkit-transition: all 0.4s ease;
+            -o-transition: all 0.4s ease;
+            transition: all 0.4s ease
+        }
+  
+        .accordion li:last-child .link {
+            border-bottom: 1
+        }
+  
+        .accordion li i {
+            position: absolute;
+            top: 16px;
+            left: 12px;
+            font-size: 18px;
+            color: #e70634;
+            -webkit-transition: all 0.4s ease;
+            -o-transition: all 0.4s ease;
+            transition: all 0.4s ease;
+        }
+  
+        .accordion li i.fa-chevron-down {
+            right: 12px;
+            left: auto;
+            font-size: 16px;
+        }
+  
+        .accordion li.open .link {
+            color: #e70634;
+        }
+  
+        .accordion li.open i {
+            color: #e70634;
+        }
+  
+        .accordion li.open i.fa-chevron-down {
+            -webkit-transform: rotate(180deg);
+            -ms-transform: rotate(180deg);
+            -o-transform: rotate(180deg);
+            transform: rotate(180deg)
+        }
+  
+        .submenu {
+            display: none;
+            background: #080800;
+            font-size: 14px;
+        }
+  
+        .submenu li {
+            border-bottom: 1px solid #e70634;
+        }
+  
+        .submenu a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #e70634;
+            padding: 12px;
+            padding-left: 42px;
+            transition: all 0.25s ease;
+            background: #080800;
+        }
+  
+        .submenu a:hover {
+            background: #e70634;
+            color: #FFF;
+        }
+
+        #reset-seen {
+            display: block;
+            margin: 20px auto;
+            padding: 15px 42px;
+            color: #e70634;
+            font-size: 16px;
+            font-weight: 700;
+            background-color: #080800;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            border-radius: 4px;
+            transition: all 0.4s ease;
+             box-shadow: 0 4px 10px rgba(231, 6, 52, 0.5); /* Sombra blanca clara */
+        }
+
+        #reset-seen:hover {
+            background-color: #e70634;
+            transition: all ease 0.2s;
+            box-shadow: inset 0 0 20px rgba(49, 138, 172, 0.5), 0 0 20px rgba(49, 138, 172, 0.4);
+            outline-color: rgba(49, 138, 172, 0);
+            outline-offset: 60px;
+            text-shadow: 1px 1px 6px #fff;
+            color: #FFF;       
+        } 
+
+
+  
+        .chapter-link.visto b {
+            color: gray !important; /* Color gris para el texto del capítulo visto */
+            text-decoration: line-through !important; /* Tachado para el texto del capítulo */
+        }
+
+        .chapter-link.visto .status {
+            color: inherit; /* Hereda el color del texto del capítulo */
+            text-decoration: none; /* Sin tachado para la palabra "visto" */
+        }
+                
+      </style>
 </head>
 
 <body>
