@@ -23,7 +23,8 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
     { username: "Keonex", password: "alejandro89" },    
     { username: "Eduard", password: "0524s" },
     { username: "Odalys", password: "12345" },
-    { username: "Owendg", password: "1234" },      
+    { username: "Owendg", password: "1234" }, 
+ { username: "Nikkitta", password: "2024nikki" },   
     { username: "Albertoxyszzf", password: "12345678" },            
     { username: "Tonmy", password: "katerine89" }
   ];
