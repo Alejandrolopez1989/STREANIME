@@ -216,6 +216,11 @@
             right: 20px;
             z-index: 1000;
         }
+
+        #error-message {
+            color: red;
+            margin-top: 10px;
+        }
                 
       </style>
 </head>
@@ -509,6 +514,7 @@
             <h2>Bienvenido a STREANIME</h2>
             <p>Para comenzar, por favor activa la música de fondo.</p>
             <button id="music-control" disabled>Cargando...</button>
+            <p id="error-message"></p>
         </div>
     </div>
 
@@ -516,29 +522,23 @@
 
     <button id="toggle-music" class="hidden">Pausar Música</button>
 
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script>
         var player;
         var isPlayerReady = false;
         var isMusicPlaying = false;
-        var videoIds = ['7QR7RJAmvAk', '7QR7RJAmvAk', '7QR7RJAmvAk']; // Lista de IDs de video de respaldo
+        var videoIds = ['M7lc1UVf-VE', 'jNQXAC9IVRw', 'dQw4w9WgXcQ']; // Lista de IDs de video de respaldo
         var currentVideoIndex = 0;
 
         function logDebug(message) {
             console.log(message);
+            document.getElementById('error-message').textContent = message;
         }
 
-        // Cargar la API de YouTube de forma asíncrona
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-        logDebug('API de YouTube cargada');
-
-        function onYouTubeIframeAPIReady() {
-            logDebug('onYouTubeIframeAPIReady llamada');
+        window.onYouTubeIframeAPIReady = function() {
+            logDebug('API de YouTube cargada');
             createPlayer(videoIds[currentVideoIndex]);
-        }
+        };
 
         function createPlayer(videoId) {
             logDebug('Creando reproductor con video ID: ' + videoId);
@@ -617,6 +617,15 @@
                 logDebug('El reproductor aún no está listo');
             }
         });
+
+        // Comprobación adicional para asegurarse de que la API se carga
+        if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
+            logDebug('La API de YouTube no se cargó correctamente. Intentando recargar...');
+            var tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            var firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        }
     </script>
 </body>
 
