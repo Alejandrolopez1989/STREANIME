@@ -165,12 +165,28 @@
         }
 
 
-
-        #music-control {
+         /* css del pops up y la musica de youtube en la pagina del anime */
+        .modal {
+            display: flex;
             position: fixed;
-            bottom: 20px;
-            right: 20px;
             z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        #music-control, #toggle-music {
             padding: 10px 20px;
             font-size: 16px;
             background-color: #4CAF50;
@@ -179,8 +195,25 @@
             cursor: pointer;
             border-radius: 5px;
         }
-        #music-control:hover {
+
+        #music-control:hover, #toggle-music:hover {
             background-color: #45a049;
+        }
+
+        #music-control:disabled, #toggle-music:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        #toggle-music {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
         }
                 
       </style>
@@ -455,18 +488,37 @@
     var accordion = new Accordion($('#accordion'), false);
 });
     </script>
-    <button id="music-control">Reproducir Música</button>
 
-    <script src="https://www.youtube.com/iframe_api"></script>
+
+    <!--reproduce la musica del anime-->
+    <div id="music-modal" class="modal">
+        <div class="modal-content">
+            <h2>Bienvenido a STREANIME</h2>
+            <p>Para comenzar, por favor activa la música de fondo.</p>
+            <button id="music-control" disabled>Cargando...</button>
+        </div>
+    </div>
+
+    <div id="youtube-player"></div>
+
+    <button id="toggle-music" class="hidden">Pausar Música</button>
+
     <script>
         var player;
         var isPlayerReady = false;
+        var isMusicPlaying = false;
+
+        // Cargar la API de YouTube de forma asíncrona
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('youtube-player', {
                 height: '0',
                 width: '0',
-                videoId: 'VYTkJDhKcc4', // Cambia este ID por el ID del video de YouTube que deseas reproducir
+                videoId: 'dQw4w9WgXcQ', // Cambia este ID por el ID del video de YouTube que deseas reproducir
                 playerVars: {
                     'autoplay': 0,
                     'controls': 0,
@@ -477,7 +529,8 @@
                     'showinfo': 0
                 },
                 events: {
-                    'onReady': onPlayerReady
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
                 }
             });
         }
@@ -486,16 +539,36 @@
             isPlayerReady = true;
             var musicControl = document.getElementById('music-control');
             musicControl.disabled = false;
+            musicControl.textContent = 'Activar Música';
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                isMusicPlaying = true;
+                document.getElementById('toggle-music').textContent = 'Pausar Música';
+            } else if (event.data == YT.PlayerState.PAUSED) {
+                isMusicPlaying = false;
+                document.getElementById('toggle-music').textContent = 'Reanudar Música';
+            }
         }
 
         document.getElementById('music-control').addEventListener('click', function() {
             if (isPlayerReady) {
-                if (player.getPlayerState() == YT.PlayerState.PLAYING) {
+                player.playVideo();
+                document.getElementById('music-modal').classList.add('hidden');
+                document.getElementById('toggle-music').classList.remove('hidden');
+                isMusicPlaying = true;
+            } else {
+                console.log('El reproductor aún no está listo');
+            }
+        });
+
+        document.getElementById('toggle-music').addEventListener('click', function() {
+            if (isPlayerReady) {
+                if (isMusicPlaying) {
                     player.pauseVideo();
-                    this.textContent = 'Reproducir Música';
                 } else {
                     player.playVideo();
-                    this.textContent = 'Pausar Música';
                 }
             } else {
                 console.log('El reproductor aún no está listo');
