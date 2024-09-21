@@ -163,6 +163,25 @@
             color: inherit; /* Hereda el color del texto del capítulo */
             text-decoration: none; /* Sin tachado para la palabra "visto" */
         }
+
+
+
+        #music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        #music-control:hover {
+            background-color: #45a049;
+        }
                 
       </style>
 </head>
@@ -266,6 +285,8 @@
             </li>
 
     </div><br><br><br><br><br><br>
+
+    
     <!--section class="screenshots">
         <strong>DESCARGAR</strong>
         <!--screenshots-container---------
@@ -434,6 +455,53 @@
     var accordion = new Accordion($('#accordion'), false);
 });
     </script>
+    <button id="music-control">Reproducir Música</button>
+
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        var player;
+        var isPlayerReady = false;
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-player', {
+                height: '0',
+                width: '0',
+                videoId: 'VYTkJDhKcc4', // Cambia este ID por el ID del video de YouTube que deseas reproducir
+                playerVars: {
+                    'autoplay': 0,
+                    'controls': 0,
+                    'disablekb': 1,
+                    'fs': 0,
+                    'modestbranding': 1,
+                    'rel': 0,
+                    'showinfo': 0
+                },
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            isPlayerReady = true;
+            var musicControl = document.getElementById('music-control');
+            musicControl.disabled = false;
+        }
+
+        document.getElementById('music-control').addEventListener('click', function() {
+            if (isPlayerReady) {
+                if (player.getPlayerState() == YT.PlayerState.PLAYING) {
+                    player.pauseVideo();
+                    this.textContent = 'Reproducir Música';
+                } else {
+                    player.playVideo();
+                    this.textContent = 'Pausar Música';
+                }
+            } else {
+                console.log('El reproductor aún no está listo');
+            }
+        });
+    </script>    
 </body>
 
 </html>
