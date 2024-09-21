@@ -222,12 +222,12 @@
             margin-top: 10px;
         }
 
-        #youtube-player {
-            position: fixed;
-            bottom: 0;
-            right: 0;
+        #player {
             width: 1px;
             height: 1px;
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
         }
                 
       </style>
@@ -521,52 +521,30 @@
         <div class="modal-content">
             <h2>Bienvenido a STREANIME</h2>
             <p>Para comenzar, por favor activa la música de fondo.</p>
-            <button id="music-control" disabled>Cargando...</button>
+            <button id="music-control">Activar Música</button>
             <p id="error-message"></p>
         </div>
     </div>
 
-    <div id="youtube-player"></div>
-
     <button id="toggle-music" class="hidden">Pausar Música</button>
 
+    <div id="player"></div>
+
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script>
         var player;
-        var isPlayerReady = false;
+        var isMusicReady = false;
         var isMusicPlaying = false;
-        var videoIds = ['M7lc1UVf-VE', 'jNQXAC9IVRw', 'dQw4w9WgXcQ']; // Lista de IDs de video de respaldo
-        var currentVideoIndex = 0;
 
-        function logDebug(message) {
-            console.log(message);
-            document.getElementById('error-message').textContent = message;
-        }
-
-        function loadYouTubeAPI() {
-            logDebug('Cargando API de YouTube...');
-            var tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api";
-            var firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        }
-
-        window.onYouTubeIframeAPIReady = function() {
-            logDebug('API de YouTube cargada');
-            createPlayer(videoIds[currentVideoIndex]);
-        };
-
-        function createPlayer(videoId) {
-            logDebug('Creando reproductor con video ID: ' + videoId);
-            player = new YT.Player('youtube-player', {
-                height: '1',
-                width: '1',
-                videoId: videoId,
+        function onYouTubeIframeAPIReady() {
+            console.log('API de YouTube cargada');
+            player = new YT.Player('player', {
+                height: '0',
+                width: '0',
+                videoId: 'dQw4w9WgXcQ',
                 playerVars: {
                     'autoplay': 0,
                     'controls': 0,
-                    'disablekb': 1,
-                    'fs': 0,
-                    'modestbranding': 1,
                     'rel': 0,
                     'showinfo': 0
                 },
@@ -579,72 +557,47 @@
         }
 
         function onPlayerReady(event) {
-            logDebug('Reproductor listo');
-            isPlayerReady = true;
-            var musicControl = document.getElementById('music-control');
-            musicControl.disabled = false;
-            musicControl.textContent = 'Activar Música';
+            console.log('Reproductor listo');
+            isMusicReady = true;
+            document.getElementById('music-control').disabled = false;
         }
 
         function onPlayerStateChange(event) {
-            logDebug('Estado del reproductor cambiado: ' + event.data);
             if (event.data == YT.PlayerState.PLAYING) {
+                console.log('La música está sonando');
                 isMusicPlaying = true;
                 document.getElementById('toggle-music').textContent = 'Pausar Música';
             } else if (event.data == YT.PlayerState.PAUSED) {
+                console.log('La música está pausada');
                 isMusicPlaying = false;
                 document.getElementById('toggle-music').textContent = 'Reanudar Música';
             }
         }
 
         function onPlayerError(event) {
-            logDebug('Error del reproductor: ' + event.data);
-            if (currentVideoIndex < videoIds.length - 1) {
-                currentVideoIndex++;
-                logDebug('Intentando con el siguiente video: ' + videoIds[currentVideoIndex]);
-                player.loadVideoById(videoIds[currentVideoIndex]);
-            } else {
-                logDebug('No se pudo reproducir ningún video. Por favor, verifica tu conexión a Internet.');
-            }
+            console.log('Error del reproductor: ' + event.data);
+            document.getElementById('error-message').textContent = 'Error al cargar la música. Por favor, inténtalo de nuevo.';
         }
 
         document.getElementById('music-control').addEventListener('click', function() {
-            logDebug('Botón de control de música clickeado');
-            if (isPlayerReady) {
+            console.log('Botón de control de música clickeado');
+            if (isMusicReady) {
                 player.playVideo();
                 document.getElementById('music-modal').classList.add('hidden');
                 document.getElementById('toggle-music').classList.remove('hidden');
-                isMusicPlaying = true;
             } else {
-                logDebug('El reproductor aún no está listo');
+                console.log('El reproductor aún no está listo');
             }
         });
 
         document.getElementById('toggle-music').addEventListener('click', function() {
-            logDebug('Botón de alternar música clickeado');
-            if (isPlayerReady) {
-                if (isMusicPlaying) {
-                    player.pauseVideo();
-                } else {
-                    player.playVideo();
-                }
+            console.log('Botón de alternar música clickeado');
+            if (isMusicPlaying) {
+                player.pauseVideo();
             } else {
-                logDebug('El reproductor aún no está listo');
+                player.playVideo();
             }
         });
-
-        // Cargar la API de YouTube
-        loadYouTubeAPI();
-
-        // Verificar el estado de carga cada segundo
-        var checkAPILoaded = setInterval(function() {
-            if (typeof YT !== 'undefined' && typeof YT.Player !== 'undefined') {
-                clearInterval(checkAPILoaded);
-                logDebug('API de YouTube cargada correctamente');
-            } else {
-                logDebug('Esperando a que se cargue la API de YouTube...');
-            }
-        }, 1000);
     </script>
 </body>
 
