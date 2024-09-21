@@ -165,70 +165,63 @@
         }
 
 
+        /* Nuevos estilos para el pop-up */
+    #music-popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
 
-        /* css del pops up y la musica de youtube en la pagina del anime */
-        .modal {
-            display: flex;
-            position: fixed;
-            z-index: 9999;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            align-items: center;
-            justify-content: center;
-        }
+    #music-popup-content {
+        background-color: #080800;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 0 20px rgba(231, 6, 52, 0.5);
+    }
 
-        .modal-content {
-            background-color: #fefefe;
-            padding: 20px;
-            border-radius: 5px;
-            text-align: center;
-        }
+    #play-button {
+        background-color: #e70634;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
 
-        #music-control, #toggle-music {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-        }
+    #play-button:hover {
+        background-color: #ff1a4a;
+    }
 
-        #music-control:hover, #toggle-music:hover {
-            background-color: #45a049;
-        }
+    #music-control {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #080800;
+        padding: 10px;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 0 10px rgba(231, 6, 52, 0.5);
+        z-index: 1000;
+    }
 
-        #music-control:disabled, #toggle-music:disabled {
-            background-color: #cccccc;
-            cursor: not-allowed;
-        }
+    #music-control i {
+        color: #e70634;
+        font-size: 24px;
+    }
 
-        .hidden {
-            display: none !important;
-        }
 
-        #toggle-music {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
 
-        #error-message {
-            color: red;
-            margin-top: 10px;
-        }
-
-        #player {
-            width: 1px;
-            height: 1px;
-            position: absolute;
-            top: -9999px;
-            left: -9999px;
-        }
+        
                 
       </style>
 </head>
@@ -513,92 +506,59 @@
 });
     </script>
 
-
-
-
     <!--reproduce la musica del anime-->
-    <div id="music-modal" class="modal">
-        <div class="modal-content">
-            <h2>Bienvenido a STREANIME</h2>
-            <p>Para comenzar, por favor activa la música de fondo.</p>
-            <button id="music-control">Activar Música</button>
-            <p id="error-message"></p>
+    <div id="music-popup">
+        <div id="music-popup-content">
+            <h2 style="color: #e70634;">Bienvenido a STREANIME</h2>
+            <p style="color: #fff;">Para continuar, por favor reproduce la música.</p>
+            <button id="play-button">
+                <i class="fas fa-play"></i> Reproducir
+            </button>
         </div>
     </div>
 
-    <button id="toggle-music" class="hidden">Pausar Música</button>
+    <!-- Botón de control de música -->
+    <div id="music-control" style="display: none;">
+        <i class="fas fa-pause" id="music-icon"></i>
+    </div>
 
-    <div id="player"></div>
+    <!-- Audio element -->
+    <audio id="background-music" loop>
+        <source src="../fonts/AUD-20240827-WA0005.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
 
-    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script>
-        var player;
-        var isMusicReady = false;
-        var isMusicPlaying = false;
+        document.addEventListener('DOMContentLoaded', function() {
+            const popup = document.getElementById('music-popup');
+            const playButton = document.getElementById('play-button');
+            const musicControl = document.getElementById('music-control');
+            const musicIcon = document.getElementById('music-icon');
+            const audio = document.getElementById('background-music');
 
-        function onYouTubeIframeAPIReady() {
-            console.log('API de YouTube cargada');
-            player = new YT.Player('player', {
-                height: '0',
-                width: '0',
-                videoId: 'dQw4w9WgXcQ',
-                playerVars: {
-                    'autoplay': 0,
-                    'controls': 0,
-                    'rel': 0,
-                    'showinfo': 0
-                },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange,
-                    'onError': onPlayerError
+            playButton.addEventListener('click', function() {
+                audio.play();
+                popup.style.display = 'none';
+                musicControl.style.display = 'block';
+                document.body.style.overflow = 'auto'; // Permite el scroll
+            });
+
+            musicControl.addEventListener('click', function() {
+                if (audio.paused) {
+                    audio.play();
+                    musicIcon.className = 'fas fa-pause';
+                } else {
+                    audio.pause();
+                    musicIcon.className = 'fas fa-play';
                 }
             });
-        }
 
-        function onPlayerReady(event) {
-            console.log('Reproductor listo');
-            isMusicReady = true;
-            document.getElementById('music-control').disabled = false;
-        }
-
-        function onPlayerStateChange(event) {
-            if (event.data == YT.PlayerState.PLAYING) {
-                console.log('La música está sonando');
-                isMusicPlaying = true;
-                document.getElementById('toggle-music').textContent = 'Pausar Música';
-            } else if (event.data == YT.PlayerState.PAUSED) {
-                console.log('La música está pausada');
-                isMusicPlaying = false;
-                document.getElementById('toggle-music').textContent = 'Reanudar Música';
-            }
-        }
-
-        function onPlayerError(event) {
-            console.log('Error del reproductor: ' + event.data);
-            document.getElementById('error-message').textContent = 'Error al cargar la música. Por favor, inténtalo de nuevo.';
-        }
-
-        document.getElementById('music-control').addEventListener('click', function() {
-            console.log('Botón de control de música clickeado');
-            if (isMusicReady) {
-                player.playVideo();
-                document.getElementById('music-modal').classList.add('hidden');
-                document.getElementById('toggle-music').classList.remove('hidden');
-            } else {
-                console.log('El reproductor aún no está listo');
-            }
-        });
-
-        document.getElementById('toggle-music').addEventListener('click', function() {
-            console.log('Botón de alternar música clickeado');
-            if (isMusicPlaying) {
-                player.pauseVideo();
-            } else {
-                player.playVideo();
-            }
+            // Bloquear el scroll mientras el pop-up está visible
+            document.body.style.overflow = 'hidden';
         });
     </script>
+    
 </body>
 
 </html>
