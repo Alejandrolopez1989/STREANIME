@@ -221,6 +221,14 @@
             color: red;
             margin-top: 10px;
         }
+
+        #youtube-player {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            width: 1px;
+            height: 1px;
+        }
                 
       </style>
 </head>
@@ -522,7 +530,6 @@
 
     <button id="toggle-music" class="hidden">Pausar Música</button>
 
-    <script src="https://www.youtube.com/iframe_api"></script>
     <script>
         var player;
         var isPlayerReady = false;
@@ -535,6 +542,14 @@
             document.getElementById('error-message').textContent = message;
         }
 
+        function loadYouTubeAPI() {
+            logDebug('Cargando API de YouTube...');
+            var tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            var firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        }
+
         window.onYouTubeIframeAPIReady = function() {
             logDebug('API de YouTube cargada');
             createPlayer(videoIds[currentVideoIndex]);
@@ -543,8 +558,8 @@
         function createPlayer(videoId) {
             logDebug('Creando reproductor con video ID: ' + videoId);
             player = new YT.Player('youtube-player', {
-                height: '0',
-                width: '0',
+                height: '1',
+                width: '1',
                 videoId: videoId,
                 playerVars: {
                     'autoplay': 0,
@@ -618,14 +633,18 @@
             }
         });
 
-        // Comprobación adicional para asegurarse de que la API se carga
-        if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
-            logDebug('La API de YouTube no se cargó correctamente. Intentando recargar...');
-            var tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api";
-            var firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        }
+        // Cargar la API de YouTube
+        loadYouTubeAPI();
+
+        // Verificar el estado de carga cada segundo
+        var checkAPILoaded = setInterval(function() {
+            if (typeof YT !== 'undefined' && typeof YT.Player !== 'undefined') {
+                clearInterval(checkAPILoaded);
+                logDebug('API de YouTube cargada correctamente');
+            } else {
+                logDebug('Esperando a que se cargue la API de YouTube...');
+            }
+        }, 1000);
     </script>
 </body>
 
