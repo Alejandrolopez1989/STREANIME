@@ -163,6 +163,62 @@
             color: inherit; /* Hereda el color del texto del capítulo */
             text-decoration: none; /* Sin tachado para la palabra "visto" */
         }
+
+
+
+        /* Nuevos estilos para el pop-up */
+    #music-popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+
+    #music-popup-content {
+        background-color: #080800;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 0 20px rgba(231, 6, 52, 0.5);
+    }
+
+    #play-button {
+        background-color: #e70634;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+
+    #play-button:hover {
+        background-color: #ff1a4a;
+    }
+
+    #music-control {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #080800;
+        padding: 10px;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 0 10px rgba(231, 6, 52, 0.5);
+        z-index: 1000;
+    }
+
+    #music-control i {
+        color: #e70634;
+        font-size: 24px;
+    }
                 
       </style>
 </head>
@@ -669,6 +725,60 @@
     var accordion = new Accordion($('#accordion'), false);
 });
     </script>
+
+
+<!--reproduce la musica del anime-->
+<div id="music-popup">
+    <div id="music-popup-content">
+        <h2 style="color: #e70634;">Bienvenido a STREANIME</h2><br>
+        <p style="color: #fff;">Para continuar, por favor reproduce la música.</p><br>
+        <button id="play-button">
+            <i class="fas fa-play"></i> Reproducir
+        </button>
+    </div>
+</div>
+
+<!-- Botón de control de música -->
+<div id="music-control" style="display: none;">
+    <i class="fas fa-pause" id="music-icon"></i>
+</div>
+
+<!-- Audio element -->
+<audio id="background-music" loop>
+    <source src="../OPENINGS/Fairy-Tail-Opening-1-Creditless-HD-60-fps.mp3" type="audio/mpeg">
+    Tu navegador no soporta el elemento de audio.
+</audio>
+
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const popup = document.getElementById('music-popup');
+        const playButton = document.getElementById('play-button');
+        const musicControl = document.getElementById('music-control');
+        const musicIcon = document.getElementById('music-icon');
+        const audio = document.getElementById('background-music');
+
+        playButton.addEventListener('click', function() {
+            audio.play();
+            popup.style.display = 'none';
+            musicControl.style.display = 'block';
+            document.body.style.overflow = 'auto'; // Permite el scroll
+        });
+
+        musicControl.addEventListener('click', function() {
+            if (audio.paused) {
+                audio.play();
+                musicIcon.className = 'fas fa-pause';
+            } else {
+                audio.pause();
+                musicIcon.className = 'fas fa-play';
+            }
+        });
+
+        // Bloquear el scroll mientras el pop-up está visible
+        document.body.style.overflow = 'hidden';
+    });
+</script>
 </body>
 
 </html>
