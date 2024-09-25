@@ -259,16 +259,16 @@
                 <div class="link"><i class="fa fa-tv"></i>Temporada 1<i class="fa fa-chevron-down"></i>
                 </div>
                 <ul class="submenu">
-                    <li><a href="https://zplayer.io/?v=KhHwY-Tn0" class="chapter-link" data-chapter="1"><b>Capitulo 1</b><span class="status"></span></a></li>
-                    <li><a href="https://zplayer.io/?v=xG2zpcbLj" class="chapter-link" data-chapter="2"><b>Capitulo 2</b><span class="status"></span></a></li>
-                    <li><a href="https://zplayer.io/?v=eG6Cvox0Zb" class="chapter-link" data-chapter="3"><b>Capitulo 3</b><span class="status"></span></a></li>
-                    <li><a href="https://zplayer.io/?v=VTBLqVoUaC" class="chapter-link" data-chapter="4"><b>Capitulo 4</b><span class="status"></span></a></li>
-                    <li><a href="https://zplayer.io/?v=aKjHKrX1Br" class="chapter-link" data-chapter="5"><b>Capitulo 5</b><span class="status"></span></a></li>
-                    <li><a href="https://zplayer.io/?v=NhVNdYiw9s" class="chapter-link" data-chapter="6"><b>Capitulo 6</b><span class="status"></span></a></li>
-                    <li><a href="https://zplayer.io/?v=dF7HxyJcNa" class="chapter-link" data-chapter="7"><b>Capitulo 7</b><span class="status"></span></a></li>
-                    <li><a href="https://zplayer.io/?v=Z-a4MXM5Ht" class="chapter-link" data-chapter="8"><b>Capitulo 8</b><span class="status"></span></a></li>
-                    <li><a href="https://zplayer.io/?v=71rRAtMRSj" class="chapter-link" data-chapter="9"><b>Capitulo 9</b><span class="status"></span></a></li>
-                    <li><a href="https://zplayer.io/?v=3C7Y4Jh9lP" class="chapter-link" data-chapter="10"><b>Capitulo 10</b><span class="status"></span></a></li>
+                    <li><a href="https://zplayer.io/?v=KhHwY-Tn0" class="chapter-link" data-chapter="1" data-anime="bye bye"><b>Capitulo 1</b><span class="status"></span></a></li>
+                    <li><a href="https://zplayer.io/?v=xG2zpcbLj" class="chapter-link" data-chapter="2" data-anime="bye bye"><b>Capitulo 2</b><span class="status"></span></a></li>
+                    <li><a href="https://zplayer.io/?v=eG6Cvox0Zb" class="chapter-link" data-chapter="3" data-anime="bye bye"><b>Capitulo 3</b><span class="status"></span></a></li>
+                    <li><a href="https://zplayer.io/?v=VTBLqVoUaC" class="chapter-link" data-chapter="4" data-anime="bye bye"><b>Capitulo 4</b><span class="status"></span></a></li>
+                    <li><a href="https://zplayer.io/?v=aKjHKrX1Br" class="chapter-link" data-chapter="5" data-anime="bye bye"><b>Capitulo 5</b><span class="status"></span></a></li>
+                    <li><a href="https://zplayer.io/?v=NhVNdYiw9s" class="chapter-link" data-chapter="6" data-anime="bye bye"><b>Capitulo 6</b><span class="status"></span></a></li>
+                    <li><a href="https://zplayer.io/?v=dF7HxyJcNa" class="chapter-link" data-chapter="7" data-anime="bye bye"><b>Capitulo 7</b><span class="status"></span></a></li>
+                    <li><a href="https://zplayer.io/?v=Z-a4MXM5Ht" class="chapter-link" data-chapter="8" data-anime="bye bye"><b>Capitulo 8</b><span class="status"></span></a></li>
+                    <li><a href="https://zplayer.io/?v=71rRAtMRSj" class="chapter-link" data-chapter="9" data-anime="bye bye"><b>Capitulo 9</b><span class="status"></span></a></li>
+                    <li><a href="https://zplayer.io/?v=3C7Y4Jh9lP" class="chapter-link" data-chapter="10" data-anime="bye bye"><b>Capitulo 10</b><span class="status"></span></a></li>
                 </ul>
             </li>
 
@@ -368,79 +368,85 @@
 
     
 
-    <script>
-        $(function () {
-    var Accordion = function (el, multiple) {
-        this.el = el || {};
-        this.multiple = multiple || false;
+<script>
+    $(function () {
+        var Accordion = function (el, multiple) {
+            this.el = el || {};
+            this.multiple = multiple || false;
 
-        var links = this.el.find('.link');
+            var links = this.el.find('.link');
 
-        links.on('click', { el: this.el, multiple: this.multiple }, this.dropdown);
-        this.el.find('.chapter-link').on('click', this.markAsSeen);
-        
-        // Marcar capítulos vistos al cargar la página
-        this.markChaptersAsSeen();
+            links.on('click', { el: this.el, multiple: this.multiple }, this.dropdown);
+            this.el.find('.chapter-link').on('click', this.markAsSeen);
 
-        // Manejar el botón de reinicio
-        $('#reset-seen').on('click', this.resetSeenChapters);
-    }
+            // Marcar capítulos vistos al cargar la página
+            this.markChaptersAsSeen();
 
-    Accordion.prototype.dropdown = function (e) {
-        var $el = e.data.el;
-        var $this = $(this),
-            $next = $this.next();
-
-        $next.slideToggle();
-        $this.parent().toggleClass('open');
-
-        if (!e.data.multiple) {
-            $el.find('.submenu').not($next).slideUp().parent().removeClass('open');
-        }
-    }
-
-    Accordion.prototype.markAsSeen = function (e) {
-        e.preventDefault(); // Prevent default action of the link
-        var $this = $(this);
-        var chapterId = $this.data('chapter');
-        
-        $this.addClass('visto'); // Add 'visto' class to the clicked link
-        $this.find('.status').text('visto'); // Set 'visto' text
-
-        // Guardar el capítulo como visto en LocalStorage
-        var seenChapters = JSON.parse(localStorage.getItem('seenChapters')) || [];
-        if (!seenChapters.includes(chapterId)) {
-            seenChapters.push(chapterId);
-            localStorage.setItem('seenChapters', JSON.stringify(seenChapters));
+            // Manejar el botón de reinicio
+            $('#reset-seen').on('click', this.resetSeenChapters);
         }
 
-        window.location.href = $this.attr('href'); // Open the link in the same window
-    }
+        Accordion.prototype.dropdown = function (e) {
+            var $el = e.data.el;
+            var $this = $(this),
+                $next = $this.next();
 
-    Accordion.prototype.markChaptersAsSeen = function () {
-        var seenChapters = JSON.parse(localStorage.getItem('seenChapters')) || [];
-        $('.chapter-link').each(function () {
+            $next.slideToggle();
+            $this.parent().toggleClass('open');
+
+            if (!e.data.multiple) {
+                $el.find('.submenu').not($next).slideUp().parent().removeClass('open');
+            }
+        }
+
+        Accordion.prototype.markAsSeen = function (e) {
+            e.preventDefault(); // Prevent default action of the link
             var $this = $(this);
             var chapterId = $this.data('chapter');
-            if (seenChapters.includes(chapterId)) {
-                $this.addClass('visto');
-                $this.find('.status').text('visto');
+            var animeId = $this.data('anime'); // Añadimos el identificador de anime
+
+            $this.addClass('visto'); // Add 'visto' class to the clicked link
+            $this.find('.status').text('visto'); // Set 'visto' text
+
+            // Guardar el capítulo como visto en LocalStorage con animeId
+            var seenChapters = JSON.parse(localStorage.getItem('seenChapters')) || {};
+            if (!seenChapters[animeId]) {
+                seenChapters[animeId] = [];
             }
-        });
-    }
+            if (!seenChapters[animeId].includes(chapterId)) {
+                seenChapters[animeId].push(chapterId);
+                localStorage.setItem('seenChapters', JSON.stringify(seenChapters));
+            }
 
-    Accordion.prototype.resetSeenChapters = function () {
-        // Limpiar LocalStorage
-        localStorage.removeItem('seenChapters');
-        
-        // Limpiar la vista en la página
-        $('.chapter-link').removeClass('visto');
-        $('.chapter-link .status').text('');
-    }
+            window.location.href = $this.attr('href'); // Open the link in the same window
+        }
 
-    var accordion = new Accordion($('#accordion'), false);
-});
-    </script>
+        Accordion.prototype.markChaptersAsSeen = function () {
+            var seenChapters = JSON.parse(localStorage.getItem('seenChapters')) || {};
+            $('.chapter-link').each(function () {
+                var $this = $(this);
+                var chapterId = $this.data('chapter');
+                var animeId = $this.data('anime'); // Usamos el animeId
+
+                if (seenChapters[animeId] && seenChapters[animeId].includes(chapterId)) {
+                    $this.addClass('visto');
+                    $this.find('.status').text('visto');
+                }
+            });
+        }
+
+        Accordion.prototype.resetSeenChapters = function () {
+            // Limpiar LocalStorage
+            localStorage.removeItem('seenChapters');
+
+            // Limpiar la vista en la página
+            $('.chapter-link').removeClass('visto');
+            $('.chapter-link .status').text('');
+        }
+
+        var accordion = new Accordion($('#accordion'), false);
+    });
+</script>
 </body>
 
 </html>
