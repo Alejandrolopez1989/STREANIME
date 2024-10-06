@@ -1,1171 +1,935 @@
-<!--doctype html-->
-<html>
+<html><head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>STREANIME-ANIMES EN EMISION</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+	<link href="https://fonts.googleapis.com/css2?family=Monoton&family=Poppins&family=Playpen Sans:wght@400;700&display=swap" rel="stylesheet">
+	<style>
+	  :root {
+		--primary-color: #e50914;
+		--background-color: #0f0f0f;
+		--card-background: #333;
+		--text-color: #fff;
+	  }
+	
+	  body {
+		background-color: var(--background-color);
+		color: var(--text-color);
+		font-family: 'Poppins', sans-serif;
+	  }
+	
+	  .navbar {
+		background-color: #000 !important;
+	  }
+	
+	  .navbar-brand {
+		position: static;
+		left: auto;
+		transform: none;
+		text-align: center;
+		font-size: clamp(1.5rem, 4vw, 2.5rem);
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		font-family: 'Monoton', cursive;
+		width: 100%;
+	  }
+	
+	  .navbar-brand .stre-anime {
+		color: var(--primary-color);
+	  }
+	
+	  .navbar > .container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	  }
+	
+	  @media (max-width: 991px) {
+		.navbar-brand {
+		  font-size: clamp(1.2rem, 3vw, 2rem);
+		}
+	  }
+	
+	  .navbar-nav {
+		flex-wrap: nowrap;
+		overflow-x: auto;
+		justify-content: space-between;
+		width: 100%;
+	  }
+	
+	  .nav-item {
+		flex: 1;
+		text-align: center;
+		margin: 0 2px;
+	  }
+	
+	  .nav-link {
+		color: var(--text-color) !important;
+		font-weight: 600;
+		font-size: clamp(0.8rem, 2vw, 1rem);
+		white-space: nowrap;
+		padding: 0.25rem 0.5rem !important;
+		background-color: var(--primary-color);
+		border-radius: 5px;
+		transition: background-color 0.3s ease;
+	  }
+	
+	  .nav-link:hover {
+		background-color: #c50812;
+	  }
+	
+	  @media (max-width: 767px) {
+		.nav-link {
+		  font-size: 0.7rem;
+		  padding: 0.15rem 0.3rem !important;
+		}
+	  }
+	
+	  @media (min-width: 768px) and (max-width: 991px) {
+		.nav-link {
+		  font-size: 0.8rem;
+		  padding: 0.2rem 0.4rem !important;
+		}
+	  }
+	
+	  @media (min-width: 992px) {
+		.nav-link {
+		  font-size: 1rem;
+		  padding: 0.25rem 0.5rem !important;
+		}
+	  }
+	
+	  .content-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+		gap: 20px;
+		padding: 20px;
+	  }
+	
+	  @media (min-width: 576px) {
+		.content-grid {
+		  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+		}
+	  }
+	
+	  @media (min-width: 992px) {
+		.content-grid {
+		  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+		}
+	  }
+	
+	  .content-card {
+		background-color: var(--card-background);
+		border-radius: 5px;
+		overflow: hidden;
+		transition: transform 0.3s ease;
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+	}
+	
+	.content-card:hover {
+		transform: scale(1.05);
+	}
+	
+	.content-card img {
+		width: 100%;
+		height: auto;
+		aspect-ratio: 2 / 3;
+		object-fit: cover;
+	}
+	
+	.content-card h3 {
+		flex-grow: 1;
+		display: flex; /* Agregado para centrar el texto */
+		align-items: center; /* Centrado vertical */
+		justify-content: center; /* Centrado horizontal */
+		padding: 10px; /* Espacio alrededor del texto */
+		margin: 0;
+		font-size: clamp(0.8rem, 2vw, 1rem);
+		font-family: 'Playpen Sans';
+		text-align: center;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		background-color: var(--primary-color);
+		color: var(--text-color);    
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		min-height: 50px; /* Asegura que el fondo siempre tenga la misma altura */
+		white-space: normal; /* Permite que el texto salte a una nueva línea si es muy largo */
+		word-wrap: break-word; /* Ajusta el texto largo dentro del espacio disponible */
+		overflow: hidden; /* Evita que el texto se desborde */  
+	}
+	
+	
+	
+	  .content-type {
+		position: absolute;
+		top: 10px;
+		left: 10px;
+		background-color: rgb(245, 4, 4);
+		color: var(--text-color);
+		padding: 5px 10px;
+		border-radius: 10px;
+		font-size: clamp(0.6rem, 1.5vw, 0.8rem);
+		font-weight: 600;
+	  }
+	
+	  .pagination {
+		justify-content: center;
+		margin-top: 20px;
+	  }
+	
+	  .pagination .page-link {
+		background-color: var(--card-background);
+		color: var(--text-color);
+		border-color: #666;
+	  }
+	
+	  .pagination .page-item.active .page-link {
+		background-color: var(--primary-color);
+		border-color: var(--primary-color);
+	  }
+	
+	  @media (max-width: 575.98px) {
+		.navbar-nav {
+		  justify-content: flex-start;
+		}
+		.navbar-brand {
+		font-size: clamp(1.5rem, 4vw, 2.5rem); /* Ajusta este valor si es necesario */
+		}
+	
+		.nav-item {
+		  flex: 0 0 auto;
+		}
+	
+		.nav-link {
+		  padding: 0.15rem 0.3rem !important;
+		  font-size: clamp(0.7rem, 1.5vw, 1rem) !important;
+		}
+	  }
+	
+	  @media (min-width: 1200px) {
+		.container {
+		  max-width: 1400px;
+		}
+	  }
+	
+	  @media (min-width: 1400px) {
+		.container {
+		  max-width: 1600px;
+		}
+	  }
+	
+	  @media (min-width: 2000px) {
+		.container {
+		  max-width: 1800px;
+		}
+	  }
+	
+	  @media (min-width: 2500px) {
+		.container {
+		  max-width: 2200px;
+		}
+	  }
+	
+	  .back-button {
+		background-color: var(--primary-color);
+		border-color: var(--primary-color);
+	  }
+	
+	  .back-button:hover {
+		background-color: #c50812;
+		border-color: #c50812;
+	  }
+	
+	  .list-group-item {
+		background-color: var(--card-background);
+		color: var(--text-color);
+		border-color: #666;
+	  }
+	
+	  .list-group-item a {
+		color: var(--text-color);
+		text-decoration: none;
+	  }
+	
+	  .list-group-item a:hover {
+		color: var(--primary-color);
+	  }
+	
+	  .anime-detail-image {
+		width: 100%;
+		height: auto;
+		aspect-ratio: 2 / 3;
+		object-fit: cover;
+	  }
+	
+	  .episode-list {
+		max-width: 300px;
+		margin: 0 auto;
+		text-align: center;
+	  }
+	
+	  .episode-list .list-group {
+		padding-left: 0;
+	  }
+	
+	  .episode-list .list-group-item {
+		display: inline-block;
+		width: 100%;
+	  }
+	
+	  @media (max-width: 767px) {
+		.col-md-8 h2 {
+		  margin-top: 1rem;
+		}
+	  }
+	
+	  .anime-title {
+		font-family: 'Playpen Sans', sans-serif;
+		font-weight: 700;
+		font-size: 2.5rem;
+		letter-spacing: 1px;
+		margin-bottom: 1rem;
+	  }
+	
+	  .synopsis-title, .chapters-title {
+		font-family: 'Playpen Sans', Poppins;
+		font-weight: 700;
+		font-size: 1.8rem;
+		letter-spacing: 1px;
+		margin-top: 1.5rem;
+		margin-bottom: 1rem;
+	  }
+	
+	  .synopsis-content {
+		font-weight: 500;
+	  }
+	
+	  .chapter-list {
+		font-weight: 500;
+	  }  
+	
+	  .back-button {
+	  background-color: var(--primary-color);
+	  border-color: var(--primary-color);
+	}
+	
+	.back-button:hover {
+	  background-color: #c50812;
+	  border-color: #c50812;
+	}
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--==Title==================================--><!--doctype html-->
-<html>
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--==Title==================================-->
-    <title>STREANIME-Oshi no Ko</title>
-    <!--Stylesheet(CSS)==========================-->
-    <link rel="stylesheet" href="../style streanime.css" />
-    <!--==Fav-icon===============================-->
-    <link rel="shortcut icon" href="../PROYECTO YOUTUBE/Images/Images/fav-icon.png" />
-    <!--==Import-poppins-font====================-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
-    <!--==Import-Monoton-Font====================-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
-    <!--==Using-Font-Awesome======================-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        .status {
-            margin-left: auto;
-            color: #e70634;
-            font-weight: bold;
-            display: inline-block;
-            white-space: nowrap;
-             
-        }        
-  
-        .accordion {
-            width: 100%;
-            max-width: 384px;
-            margin: 30px auto 20px;
-            background: #080800;
-            border-radius: 4px; /* Ajustado a 4px para hacer juego con el botón */
-            box-shadow: 0 4px 12px rgba(231, 6, 52, 0.5);
-        }
-  
-        .accordion :hover {
-            background-color: #e20000;
-            transition: all ease 0.2s;
-            box-shadow: inset 0 0 20px rgba(49, 138, 172, 0.5), 0 0 20px rgba(49, 138, 172, 0.4);
-            outline-color: rgba(49, 138, 172, 0);
-            outline-offset: 80px;
-            text-shadow: 1px 1px 6px #fff;
-        }
-  
-        .accordion .link {
-            cursor: pointer;
-            display: block;
-            padding: 15px 15px 15px 42px;
-            color: #e70634;
-            font-size: 16px;
-            font-weight: 700;
-            border-bottom: 1px solid #e70634;
-            position: relative;
-            -webkit-transition: all 0.4s ease;
-            -o-transition: all 0.4s ease;
-            transition: all 0.4s ease
-        }
-  
-        .accordion li:last-child .link {
-            border-bottom: 1
-        }
-  
-        .accordion li i {
-            position: absolute;
-            top: 16px;
-            left: 12px;
-            font-size: 18px;
-            color: #e70634;
-            -webkit-transition: all 0.4s ease;
-            -o-transition: all 0.4s ease;
-            transition: all 0.4s ease;
-        }
-  
-        .accordion li i.fa-chevron-down {
-            right: 12px;
-            left: auto;
-            font-size: 16px;
-        }
-  
-        .accordion li.open .link {
-            color: #e70634;
-        }
-  
-        .accordion li.open i {
-            color: #e70634;
-        }
-  
-        .accordion li.open i.fa-chevron-down {
-            -webkit-transform: rotate(180deg);
-            -ms-transform: rotate(180deg);
-            -o-transform: rotate(180deg);
-            transform: rotate(180deg)
-        }
-  
-        .submenu {
-            display: none;
-            background: #080800;
-            font-size: 14px;
-        }
-  
-        .submenu li {
-            border-bottom: 1px solid #e70634;
-        }
-  
-        .submenu a {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            color: #e70634;
-            padding: 12px;
-            padding-left: 42px;
-            transition: all 0.25s ease;
-            background: #080800;
-        }
-  
-        .submenu a:hover {
-            background: #e70634;
-            color: #FFF;
-        }
-
-        #reset-seen {
-            display: block;
-            margin: 20px auto;
-            padding: 15px 42px;
-            color: #e70634;
-            font-size: 16px;
-            font-weight: 700;
-            background-color: #080800;
-            border: none;
-            cursor: pointer;
-            text-align: center;
-            border-radius: 4px;
-            transition: all 0.4s ease;
-             box-shadow: 0 4px 10px rgba(231, 6, 52, 0.5); /* Sombra blanca clara */
-        }
-
-        #reset-seen:hover {
-            background-color: #e70634;
-            transition: all ease 0.2s;
-            box-shadow: inset 0 0 20px rgba(49, 138, 172, 0.5), 0 0 20px rgba(49, 138, 172, 0.4);
-            outline-color: rgba(49, 138, 172, 0);
-            outline-offset: 60px;
-            text-shadow: 1px 1px 6px #fff;
-            color: #FFF;       
-        } 
-
-
-  
-        .chapter-link.visto b {
-            color: gray !important; /* Color gris para el texto del capítulo visto */
-            text-decoration: line-through !important; /* Tachado para el texto del capítulo */
-        }
-
-        .chapter-link.visto .status {
-            color: inherit; /* Hereda el color del texto del capítulo */
-            text-decoration: none; /* Sin tachado para la palabra "visto" */
-        }
-
-
-
-        /* Nuevos estilos para el pop-up */
-    #music-popup {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.8);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-    }
-
-    #music-popup-content {
-        background-color: #080800;
-        padding: 20px;
-        border-radius: 10px;
+	.footer-centered {
         text-align: center;
-        box-shadow: 0 0 20px rgba(231, 6, 52, 0.5);
+        margin: 0 auto;
     }
-
-    #play-button {
-        background-color: #e70634;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        font-size: 16px;
-        cursor: pointer;
-        border-radius: 5px;
-        transition: all 0.3s ease;
-    }
-
-    #play-button:hover {
-        background-color: #ff1a4a;
-    }
-
-    #music-control {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background-color: #080800;
-        padding: 10px;
-        border-radius: 50%;
-        cursor: pointer;
-        box-shadow: 0 0 10px rgba(231, 6, 52, 0.5);
-        z-index: 1000;
-    }
-
-    #music-control i {
-        color: #e70634;
-        font-size: 24px;
-    }
-                
-      </style>
-</head>
-
-<body>
-    <!--==Navigation===================================-->
-    <nav class="navigation">
-        <!--menu-btn--------------->
-        <input type="checkbox" class="menu-btn" id="menu-btn">
-        <label for="menu-btn" class="menu-icon">
-            <span class="nav-icon"></span>
-        </label>
-        <!--logo------------------->
-        <a href="../inicio.html" class="logo">
-            STREANIME<span>Oshi no Ko</span>
-        </a>
-        <!--menu------------------->
-        <ul class="menu">
-            <li><a href="../inicio.html">Inicio</a></li>
-            <li><a href="../TODOS LOS ANIMES.html">ANIMES</a></li>
-            <li><a href="../ANIMES EMISION.html">EN &nbsp; EMISION</a></li>
-            <!--<li><a href="../TODAS LAS PELICULAS.html">PELICULAS</a></li>-->
-            <li><a href="https://t.me/+-UvtU02g5sI2ZmFh">CONTACTAME</a></li>
-        </ul>
-        <!--Search-box------------->
-        <form action="../BUSCADOR STREANIME.html" class="search-box" method="get">
-            <button type="submit"><i class="fas fa-search"></i> BUSCAR</button>
-        </form>
-    </nav>
-    <!--nav-end-->
-    <!--==Movie-Banner=========================================-->
-    <section class="movie-banner">
-        <!--==img==================================-->
-        <div class="m-banner-img">
-            <img src="../images/Oshi no Ko H.jpg" alt="">
-        </div>
-        <!--content================================-->
-        <div class="banner-container">
-            <!--title-container*******************----->
-            <div class="title-container">
-                <!--title-top===============-->
-                <div class="title-top">
-                    <!--title----->
-                    <div class="movie-title">
-                        <h1>Oshi no Ko (2024)</h1>
-                    </div>
-                    <!--more-about-movie-->
-                    <div class="more-about-movie">
-                        <span class="sinopsis"><b>SINOPSIS</b></span>
-                        <span>Ai Hoshino tiene 16 años y es una de las idols más adoradas de la nación. Su carisma y
-                            poder de atracción ha alcanzado incluso los lugares más recónditos de Japón, incluyendo un
-                            pequeño hospital en las afueras. Allí existe un doctor cuya pasión por Ai solo compite con
-                            la de una de sus pacientes, una niña de 14 años con cáncer terminal. Gorou Amemiya es un
-                            ginecólogo de 30 años que sueña con algún día ir a un concierto de B-Komachi, el grupo de
-                            Ai. Un día, cuál es su sorpresa al descubrir que una de sus pacientes es nada más y nada
-                            menos que Ai, y que tiene un gran secreto... ¡está embarazada! Si esto sale a la luz, sería
-                            el escándalo del siglo. Gorou jura proteger a la muchacha y su privacidad a toda costa, y
-                            llevarla a término con su embarazo (que, además, es de gemelos). Pero el mundo del
-                            entretenimiento es más que despiadado, y la seguridad de Gorou comienza a peligrar cuando un
-                            misterioso acosador parece reconocerlo como el doctor de la idol.
-                        </span>
-                        <span></span>
-                    </div>
-                    <!--language--------->
-                    <div class="language">
-                        <span><b>Japonés subtitulado</b></span>
-                    </div>
-                </div><br>
-                <!--Title-botttom==========================-->
-                <div class="title-bottom">
-                    <!--category------->
-                    <div class="category">
-                        <strong><b>Category</b></strong><br />
-                        <a href="#"><b>Sobrenatural,</b></a><a href="#"><b>Drama</b></a>
-                    </div>
-                    <!--pelicula-btn
-                    <a href="link de la pelicula" class="watch-btn"><b>Ver Anime</b></a>---->
-                </div>
-            </div>
-            <!--play-btn******************************--->
-
-            <!--Video/full-Movie***************************-->
-
-            <!--movie------->
-        </div>
-    </section>
-    <!--Banner-end------------->
-    <!--details=====================================
-    <section class="movie-details">
-        <strong>Pirates of the Caribean: Salazar's Revenge</strong>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, veniam architecto, debitis quia similique
-            adipisci autem quod eligendi delectus dolorum iusto. Eius, nobis ducimus! Corrupti nobis id itaque facere a.
-        </p>
-    </section>-->
-    <!--==ScreenShots===============================-->
-    <button id="reset-seen">Resetear Capítulos Vistos</button>
-    <div>
-        <ul id="accordion" class="accordion">
-
-            <li>
-                <div class="link"><i class="fa fa-tv"></i>Temporada 1<i class="fa fa-chevron-down"></i>
-                </div>
-                <ul class="submenu">
-                    <li><a href="https://zplayer.io/?v=_2O888PIr" class="chapter-link" data-chapter="1" data-anime="oshi no ko 1"><b>Capitulo 1</b><span class="status"></span></a></li>	 
-                    <li><a href="https://zplayer.io/?v=jI548Scqj" class="chapter-link" data-chapter="2" data-anime="oshi no ko 1"><b>Capitulo 2</b><span class="status"></span></a></li>	 
-                    <li><a href="https://zplayer.io/?v=X1R7LWAKxc" class="chapter-link" data-chapter="3" data-anime="oshi no ko 1"><b>Capitulo 3</b><span class="status"></span></a></li>	 
-                    <li><a href="https://zplayer.io/?v=shclY7o44" class="chapter-link" data-chapter="4" data-anime="oshi no ko 1"><b>Capitulo 4</b><span class="status"></span></a></li>	 
-                    <li><a href="https://zplayer.io/?v=LKNhSvzzT" class="chapter-link" data-chapter="5" data-anime="oshi no ko 1"><b>Capitulo 5</b><span class="status"></span></a></li>	 
-                    <li><a href="https://zplayer.io/?v=FPERvton0" class="chapter-link" data-chapter="6" data-anime="oshi no ko 1"><b>Capitulo 6</b><span class="status"></span></a></li>	
-                    <li><a href="https://zplayer.io/?v=AIBpW2TgE" class="chapter-link" data-chapter="7" data-anime="oshi no ko 1"><b>Capitulo 7</b><span class="status"></span></a></li>
-                    <li><a href="https://zplayer.io/?v=FLxfkqFL_" class="chapter-link" data-chapter="8" data-anime="oshi no ko 1"><b>Capitulo 8</b><span class="status"></span></a></li>
-                    <li><a href="https://zplayer.io/?v=Vj_fTWkkq8" class="chapter-link" data-chapter="9" data-anime="oshi no ko 1"><b>Capitulo 9</b><span class="status"></span></a></li>	
-                    <li><a href="https://zplayer.io/?v=7aN1xQyxs6" class="chapter-link" data-chapter="10" data-anime="oshi no ko 1"><b>Capitulo 10</b><span class="status"></span></a></li>
-                    <li><a href="https://zplayer.io/?v=EcvCykVkW" class="chapter-link" data-chapter="11" data-anime="oshi no ko 1"><b>Capitulo 11</b><span class="status"></span></a></li>                    
-                </ul>
-            </li>
-
-            <li>
-                <div class="link"><i class="fa fa-tv"></i>Temporada 2 (EN EMISION)<i class="fa fa-chevron-down"></i>
-                </div>
-                <ul class="submenu">
-                    <li><a href="https://zplayer.io/?v=cR_lo371_1" class="chapter-link" data-chapter="1" data-anime="oshi no ko 2"><b>Capitulo 1</b><span class="status"></span></a></li>
-                    <li><a href="https://zplayer.io/?v=3RUqNoaLGo" class="chapter-link" data-chapter="2" data-anime="oshi no ko 2"><b>Capitulo 2</b><span class="status"></span></a></li>
-                    <li><a href="https://zplayer.io/?v=GtqJ2-Zij65" class="chapter-link" data-chapter="3" data-anime="oshi no ko 2"><b>Capitulo 3</b><span class="status"></span></a></li>
-                    <li><a href="https://zplayer.io/?v=XTEfVP5NBo" class="chapter-link" data-chapter="4" data-anime="oshi no ko 2"><b>Capitulo 4</b><span class="status"></span></a></li>
-                    <li><a href="https://zplayer.io/?v=GOqCdVm2m" class="chapter-link" data-chapter="5" data-anime="oshi no ko 2"><b>Capitulo 5</b><span class="status"></span></a></li>
-                    <li><a href="https://zplayer.io/?v=5Le1kBUQK3" class="chapter-link" data-chapter="6" data-anime="oshi no ko 2"><b>Capitulo 6</b><span class="status"></span></a></li>
-                    <li><a href="https://zplayer.io/?v=1lckBkS124" class="chapter-link" data-chapter="7" data-anime="oshi no ko 2"><b>Capitulo 7</b><span class="status"></span></a></li>
-                    <li><a href="https://zplayer.io/?v=9Xer-dyPyN" class="chapter-link" data-chapter="8" data-anime="oshi no ko 2"><b>Capitulo 8</b><span class="status"></span></a></li>
-                    <li><a href="https://zplayer.io/?v=kOojXjrR3o" class="chapter-link" data-chapter="9" data-anime="oshi no ko 2"><b>Capitulo 9</b><span class="status"></span></a></li>
-                    <li><a href="https://zplayer.io/?v=a21dliAbAz" class="chapter-link" data-chapter="10" data-anime="oshi no ko 2"><b>Capitulo 10</b><span class="status"></span></a></li>
-                    <li><a href="https://zplayer.io/?v=nDd6u8JI7E" class="chapter-link" data-chapter="11" data-anime="oshi no ko 2"><b>Capitulo 11</b><span class="status"></span></a></li>
-                    <li><a href="https://zplayer.io/?v=g4Qgc4oWz8" class="chapter-link" data-chapter="12" data-anime="oshi no ko 2"><b>Capitulo 12</b><span class="status"></span></a></li>
-                </ul>
-            </li>
-
-    </div><br><br><br><br><br><br>
-    <!--section class="screenshots">
-        <strong>DESCARGAR</strong>
-        <!--screenshots-container---------
-        <div class="screen-s-container">
-            <img src="Movie-Data/Pirates-of-the-Caribbean-Salazar's-Revenge/screenshot-1.jpg" alt="">
-            <img src="Movie-Data/Pirates-of-the-Caribbean-Salazar's-Revenge/screenshot-2.jpg" alt="">
-            <img src="Movie-Data/Pirates-of-the-Caribbean-Salazar's-Revenge/screenshot-3.jpg" alt="">
-            <img src="Movie-Data/Pirates-of-the-Caribbean-Salazar's-Revenge/screenshot-4.jpg" alt="">
-        </div>
-    </section>-->
-    <!--Download====================================
-    <section class="download-movie">
-        <!--container---------------
-        <div class="download-container">
-            <!--box
-            <div class="download-box">
-                <span><i class="fas fa-server"></i><b>Server</b></span>
-                <span><b>English</b></span>
-                <span><b>720p</b></span>
-                <a href="#"> <b>Descargar</b></a>
-            </div>
-        </div>
-    </section>-->
-    <!--==footer==============================-->
-    <footer>
-        <!--footer-logo--->
-        <a href="index.html" class="logo">
-            STREANIME<span>ANIME</span>
-        </a>
-        <!--copyright----->
-        <span class="copyright">
-            Copyright 2023 - STREANIME
-        </span>
-    </footer>
-    <!--==jQuery=======================================-->
-    <script src="../jQuery.js"></script>
-    <script>
-        /*==scroll-progress-bar======================*/
-        let scrollPrecentage = () => {
-            let scrollProgress = document.getElementById("progress");
-            let progressValue = document.getElementById("progress-value");
-            let pos = document.documentElement.scrollTop;
-            let calcHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            let scrollValue = Math.round(pos * 100 / calcHeight);
-            scrollProgress.style.background = `conic-gradient(#e70634 ${scrollValue}%, #2b2f38 ${scrollValue}%)`;
-        }
-        window.onscroll = scrollPrecentage;
-        window.onload = scrollPrecentage;
-        /*--menu-btn-fixed-when-scroll============*/
-        $(window).scroll(function () {
-            if ($(document).scrollTop() > 20) {
-                $('.navigation').addClass('fix-icon');
-            }
-            else {
-                $('.navigation').removeClass('fix-icon');
-            }
-        });
-        /*==popup-open==================================*/
-        $(document).on('click', '.play-btn a', function () {
-            $('.play').addClass('active-popup');
-        });
-        /*==popup-Close==================================*/
-        $(document).on('click', '.close-movie', function () {
-            $('.play').removeClass('active-popup');
-        });
-        /*==auto-play-when-popup-open===================*/
-        $('.play-btn a').click(function () {
-            $('#m-video')[0].play();
-        });
-        /*==Close-video-when-poppup-close==============*/
-        $('.close-movie').click(function () {
-            $('#m-video')[0].pause();
-        });
-    </script>
-
-    <script>
-        function searchOnPage(event) {
-            event.preventDefault();
-
-            var searchText = document.getElementById('searchInput').value.toLowerCase();
-            var elements = document.getElementsByTagName('*');
-
-            for (var i = 0; i < elements.length; i++) {
-                var elementText = elements[i].textContent.toLowerCase();
-                if (elementText.indexOf(searchText) !== -1) {
-                    elements[i].scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    break; // Detiene el bucle después de encontrar la primera coincidencia
-                }
-            }
-        }
-
-    </script>
-
-    
-
-<script>
-    $(function () {
-        var Accordion = function (el, multiple) {
-            this.el = el || {};
-            this.multiple = multiple || false;
-
-            var links = this.el.find('.link');
-
-            links.on('click', { el: this.el, multiple: this.multiple }, this.dropdown);
-            this.el.find('.chapter-link').on('click', this.markAsSeen);
-
-            // Marcar capítulos vistos al cargar la página
-            this.markChaptersAsSeen();
-
-            // Manejar el botón de reinicio
-            $('#reset-seen').on('click', this.resetSeenChapters);
-        }
-
-        Accordion.prototype.dropdown = function (e) {
-            var $el = e.data.el;
-            var $this = $(this),
-                $next = $this.next();
-
-            $next.slideToggle();
-            $this.parent().toggleClass('open');
-
-            if (!e.data.multiple) {
-                $el.find('.submenu').not($next).slideUp().parent().removeClass('open');
-            }
-        }
-
-        Accordion.prototype.markAsSeen = function (e) {
-            e.preventDefault(); // Prevent default action of the link
-            var $this = $(this);
-            var chapterId = $this.data('chapter');
-            var animeId = $this.data('anime'); // Añadimos el identificador de anime
-
-            $this.addClass('visto'); // Add 'visto' class to the clicked link
-            $this.find('.status').text('visto'); // Set 'visto' text
-
-            // Guardar el capítulo como visto en LocalStorage con animeId
-            var seenChapters = JSON.parse(localStorage.getItem('seenChapters')) || {};
-            if (!seenChapters[animeId]) {
-                seenChapters[animeId] = [];
-            }
-            if (!seenChapters[animeId].includes(chapterId)) {
-                seenChapters[animeId].push(chapterId);
-                localStorage.setItem('seenChapters', JSON.stringify(seenChapters));
-            }
-
-            window.location.href = $this.attr('href'); // Open the link in the same window
-        }
-
-        Accordion.prototype.markChaptersAsSeen = function () {
-            var seenChapters = JSON.parse(localStorage.getItem('seenChapters')) || {};
-            $('.chapter-link').each(function () {
-                var $this = $(this);
-                var chapterId = $this.data('chapter');
-                var animeId = $this.data('anime'); // Usamos el animeId
-
-                if (seenChapters[animeId] && seenChapters[animeId].includes(chapterId)) {
-                    $this.addClass('visto');
-                    $this.find('.status').text('visto');
-                }
-            });
-        }
-
-        Accordion.prototype.resetSeenChapters = function () {
-            // Limpiar LocalStorage
-            localStorage.removeItem('seenChapters');
-
-            // Limpiar la vista en la página
-            $('.chapter-link').removeClass('visto');
-            $('.chapter-link .status').text('');
-        }
-
-        var accordion = new Accordion($('#accordion'), false);
-    });
-</script>
-
-
-<!--reproduce la musica del anime-->
-<div id="music-popup">
-    <div id="music-popup-content">
-        <h2 style="color: #e70634;">Bienvenido a STREANIME</h2><br>
-        <p style="color: #fff;">Para continuar, por favor reproduce la música.</p><br>
-        <button id="play-button">
-            <i class="fas fa-play"></i> Reproducir
-        </button>
-    </div>
-</div>
-
-<!-- Botón de control de música -->
-<div id="music-control" style="display: none;">
-    <i class="fas fa-pause" id="music-icon"></i>
-</div>
-
-<!-- Audio element -->
-<audio id="background-music" loop>
-    <source src="../OPENINGS/Oshi-no-Ko-Opening-4k-60FPS-Creditless.mp3" type="audio/mpeg">
-    Tu navegador no soporta el elemento de audio.
-</audio>
-
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const popup = document.getElementById('music-popup');
-        const playButton = document.getElementById('play-button');
-        const musicControl = document.getElementById('music-control');
-        const musicIcon = document.getElementById('music-icon');
-        const audio = document.getElementById('background-music');
-
-        playButton.addEventListener('click', function() {
-            audio.play();
-            popup.style.display = 'none';
-            musicControl.style.display = 'block';
-            document.body.style.overflow = 'auto'; // Permite el scroll
-        });
-
-        musicControl.addEventListener('click', function() {
-            if (audio.paused) {
-                audio.play();
-                musicIcon.className = 'fas fa-pause';
-            } else {
-                audio.pause();
-                musicIcon.className = 'fas fa-play';
-            }
-        });
-
-        // Bloquear el scroll mientras el pop-up está visible
-        document.body.style.overflow = 'hidden';
-    });
-</script>
-</body>
-
-</html>
-    <title>STREANIME-Oshi no Ko</title>
-    <!--Stylesheet(CSS)==========================-->
-    <link rel="stylesheet" href="../style streanime.css" />
-    <!--==Fav-icon===============================-->
-    <link rel="shortcut icon" href="../PROYECTO YOUTUBE/Images/Images/fav-icon.png" />
-    <!--==Import-poppins-font====================-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
-    <!--==Import-Monoton-Font====================-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
-    <!--==Using-Font-Awesome======================-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        .status {
-            margin-left: auto;
-            color: #e70634;
-            font-weight: bold;
-            display: inline-block;
-            white-space: nowrap;
-             
-        }        
-  
-        .accordion {
-            width: 100%;
-            max-width: 384px;
-            margin: 30px auto 20px;
-            background: #080800;
-            border-radius: 4px; /* Ajustado a 4px para hacer juego con el botón */
-            box-shadow: 0 4px 12px rgba(231, 6, 52, 0.5);
-        }
-  
-        .accordion :hover {
-            background-color: #e20000;
-            transition: all ease 0.2s;
-            box-shadow: inset 0 0 20px rgba(49, 138, 172, 0.5), 0 0 20px rgba(49, 138, 172, 0.4);
-            outline-color: rgba(49, 138, 172, 0);
-            outline-offset: 80px;
-            text-shadow: 1px 1px 6px #fff;
-        }
-  
-        .accordion .link {
-            cursor: pointer;
-            display: block;
-            padding: 15px 15px 15px 42px;
-            color: #e70634;
-            font-size: 16px;
-            font-weight: 700;
-            border-bottom: 1px solid #e70634;
-            position: relative;
-            -webkit-transition: all 0.4s ease;
-            -o-transition: all 0.4s ease;
-            transition: all 0.4s ease
-        }
-  
-        .accordion li:last-child .link {
-            border-bottom: 1
-        }
-  
-        .accordion li i {
-            position: absolute;
-            top: 16px;
-            left: 12px;
-            font-size: 18px;
-            color: #e70634;
-            -webkit-transition: all 0.4s ease;
-            -o-transition: all 0.4s ease;
-            transition: all 0.4s ease;
-        }
-  
-        .accordion li i.fa-chevron-down {
-            right: 12px;
-            left: auto;
-            font-size: 16px;
-        }
-  
-        .accordion li.open .link {
-            color: #e70634;
-        }
-  
-        .accordion li.open i {
-            color: #e70634;
-        }
-  
-        .accordion li.open i.fa-chevron-down {
-            -webkit-transform: rotate(180deg);
-            -ms-transform: rotate(180deg);
-            -o-transform: rotate(180deg);
-            transform: rotate(180deg)
-        }
-  
-        .submenu {
-            display: none;
-            background: #080800;
-            font-size: 14px;
-        }
-  
-        .submenu li {
-            border-bottom: 1px solid #e70634;
-        }
-  
-        .submenu a {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            color: #e70634;
-            padding: 12px;
-            padding-left: 42px;
-            transition: all 0.25s ease;
-            background: #080800;
-        }
-  
-        .submenu a:hover {
-            background: #e70634;
-            color: #FFF;
-        }
-
-        #reset-seen {
-            display: block;
-            margin: 20px auto;
-            padding: 15px 42px;
-            color: #e70634;
-            font-size: 16px;
-            font-weight: 700;
-            background-color: #080800;
-            border: none;
-            cursor: pointer;
-            text-align: center;
-            border-radius: 4px;
-            transition: all 0.4s ease;
-             box-shadow: 0 4px 10px rgba(231, 6, 52, 0.5); /* Sombra blanca clara */
-        }
-
-        #reset-seen:hover {
-            background-color: #e70634;
-            transition: all ease 0.2s;
-            box-shadow: inset 0 0 20px rgba(49, 138, 172, 0.5), 0 0 20px rgba(49, 138, 172, 0.4);
-            outline-color: rgba(49, 138, 172, 0);
-            outline-offset: 60px;
-            text-shadow: 1px 1px 6px #fff;
-            color: #FFF;       
-        } 
-
-
-  
-        .chapter-link.visto b {
-            color: gray !important; /* Color gris para el texto del capítulo visto */
-            text-decoration: line-through !important; /* Tachado para el texto del capítulo */
-        }
-
-        .chapter-link.visto .status {
-            color: inherit; /* Hereda el color del texto del capítulo */
-            text-decoration: none; /* Sin tachado para la palabra "visto" */
-        }
-
-
-
-        /* Nuevos estilos para el pop-up */
-    #music-popup {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.8);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-    }
-
-    #music-popup-content {
-        background-color: #080800;
-        padding: 20px;
-        border-radius: 10px;
-        text-align: center;
-        box-shadow: 0 0 20px rgba(231, 6, 52, 0.5);
-    }
-
-    #play-button {
-        background-color: #e70634;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        font-size: 16px;
-        cursor: pointer;
-        border-radius: 5px;
-        transition: all 0.3s ease;
-    }
-
-    #play-button:hover {
-        background-color: #ff1a4a;
-    }
-
-    #music-control {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background-color: #080800;
-        padding: 10px;
-        border-radius: 50%;
-        cursor: pointer;
-        box-shadow: 0 0 10px rgba(231, 6, 52, 0.5);
-        z-index: 1000;
-    }
-
-    #music-control i {
-        color: #e70634;
-        font-size: 24px;
-    }
-                
-      </style>
-</head>
-
-<body>
-    <!--==Navigation===================================-->
-    <nav class="navigation">
-        <!--menu-btn--------------->
-        <input type="checkbox" class="menu-btn" id="menu-btn">
-        <label for="menu-btn" class="menu-icon">
-            <span class="nav-icon"></span>
-        </label>
-        <!--logo------------------->
-        <a href="../inicio.html" class="logo">
-            STREANIME<span>Oshi no Ko</span>
-        </a>
-        <!--menu------------------->
-        <ul class="menu">
-            <li><a href="../inicio.html">Inicio</a></li>
-            <li><a href="../TODOS LOS ANIMES.html">ANIMES</a></li>
-            <li><a href="../ANIMES EMISION.html">EN &nbsp; EMISION</a></li>
-            <!--<li><a href="../TODAS LAS PELICULAS.html">PELICULAS</a></li>-->
-            <li><a href="https://t.me/+-UvtU02g5sI2ZmFh">CONTACTAME</a></li>
-        </ul>
-        <!--Search-box------------->
-        <form action="../BUSCADOR STREANIME.html" class="search-box" method="get">
-            <button type="submit"><i class="fas fa-search"></i> BUSCAR</button>
-        </form>
-    </nav>
-    <!--nav-end-->
-    <!--==Movie-Banner=========================================-->
-    <section class="movie-banner">
-        <!--==img==================================-->
-        <div class="m-banner-img">
-            <img src="../images/Oshi no Ko H.jpg" alt="">
-        </div>
-        <!--content================================-->
-        <div class="banner-container">
-            <!--title-container*******************----->
-            <div class="title-container">
-                <!--title-top===============-->
-                <div class="title-top">
-                    <!--title----->
-                    <div class="movie-title">
-                        <h1>Oshi no Ko (2024)</h1>
-                    </div>
-                    <!--more-about-movie-->
-                    <div class="more-about-movie">
-                        <span class="sinopsis"><b>SINOPSIS</b></span>
-                        <span>Ai Hoshino tiene 16 años y es una de las idols más adoradas de la nación. Su carisma y
-                            poder de atracción ha alcanzado incluso los lugares más recónditos de Japón, incluyendo un
-                            pequeño hospital en las afueras. Allí existe un doctor cuya pasión por Ai solo compite con
-                            la de una de sus pacientes, una niña de 14 años con cáncer terminal. Gorou Amemiya es un
-                            ginecólogo de 30 años que sueña con algún día ir a un concierto de B-Komachi, el grupo de
-                            Ai. Un día, cuál es su sorpresa al descubrir que una de sus pacientes es nada más y nada
-                            menos que Ai, y que tiene un gran secreto... ¡está embarazada! Si esto sale a la luz, sería
-                            el escándalo del siglo. Gorou jura proteger a la muchacha y su privacidad a toda costa, y
-                            llevarla a término con su embarazo (que, además, es de gemelos). Pero el mundo del
-                            entretenimiento es más que despiadado, y la seguridad de Gorou comienza a peligrar cuando un
-                            misterioso acosador parece reconocerlo como el doctor de la idol.
-                        </span>
-                        <span></span>
-                    </div>
-                    <!--language--------->
-                    <div class="language">
-                        <span><b>Japonés subtitulado</b></span>
-                    </div>
-                </div><br>
-                <!--Title-botttom==========================-->
-                <div class="title-bottom">
-                    <!--category------->
-                    <div class="category">
-                        <strong><b>Category</b></strong><br />
-                        <a href="#"><b>Sobrenatural,</b></a><a href="#"><b>Drama</b></a>
-                    </div>
-                    <!--pelicula-btn
-                    <a href="link de la pelicula" class="watch-btn"><b>Ver Anime</b></a>---->
-                </div>
-            </div>
-            <!--play-btn******************************--->
-
-            <!--Video/full-Movie***************************-->
-
-            <!--movie------->
-        </div>
-    </section>
-    <!--Banner-end------------->
-    <!--details=====================================
-    <section class="movie-details">
-        <strong>Pirates of the Caribean: Salazar's Revenge</strong>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, veniam architecto, debitis quia similique
-            adipisci autem quod eligendi delectus dolorum iusto. Eius, nobis ducimus! Corrupti nobis id itaque facere a.
-        </p>
-    </section>-->
-    <!--==ScreenShots===============================-->
-    <button id="reset-seen">Resetear Capítulos Vistos</button>
-    <div>
-        <ul id="accordion" class="accordion">
-
-            <li>
-                <div class="link"><i class="fa fa-tv"></i>Temporada 2 (EN EMISION)<i class="fa fa-chevron-down"></i>
-                </div>
-                <ul class="submenu">
-                    <li><a href="https://zplayer.io/?v=_2O888PIr" class="chapter-link" data-chapter="1"><b>Capitulo 1</b><span class="status"></span></a></li>	 
-                    <li><a href="https://zplayer.io/?v=jI548Scqj" class="chapter-link" data-chapter="2"><b>Capitulo 2</b><span class="status"></span></a></li>	 
-                    <li><a href="https://zplayer.io/?v=X1R7LWAKxc" class="chapter-link" data-chapter="3"><b>Capitulo 3</b><span class="status"></span></a></li>	 
-                    <li><a href="https://zplayer.io/?v=shclY7o44" class="chapter-link" data-chapter="4"><b>Capitulo 4</b><span class="status"></span></a></li>	 
-                    <li><a href="https://zplayer.io/?v=LKNhSvzzT" class="chapter-link" data-chapter="5"><b>Capitulo 5</b><span class="status"></span></a></li>	 
-                    <li><a href="https://zplayer.io/?v=FPERvton0" class="chapter-link" data-chapter="6"><b>Capitulo 6</b><span class="status"></span></a></li>	
-                    <li><a href="https://zplayer.io/?v=AIBpW2TgE" class="chapter-link" data-chapter="7"><b>Capitulo 7</b><span class="status"></span></a></li>
-                    <li><a href="https://zplayer.io/?v=FLxfkqFL_" class="chapter-link" data-chapter="8"><b>Capitulo 8</b><span class="status"></span></a></li>
-                    <li><a href="https://zplayer.io/?v=Vj_fTWkkq8" class="chapter-link" data-chapter="9"><b>Capitulo 9</b><span class="status"></span></a></li>	
-                    <li><a href="https://zplayer.io/?v=7aN1xQyxs6" class="chapter-link" data-chapter="10"><b>Capitulo 10</b><span class="status"></span></a></li>
-                    <li><a href="https://zplayer.io/?v=EcvCykVkW" class="chapter-link" data-chapter="11"><b>Capitulo 11</b><span class="status"></span></a></li>                    
-                </ul>
-            </li>
-
-            <li>
-                <div class="link"><i class="fa fa-tv"></i>Temporada 2 (EN EMISION)<i class="fa fa-chevron-down"></i>
-                </div>
-                <ul class="submenu">
-                    <li><a href="https://zplayer.io/?v=cR_lo371_1" class="chapter-link" data-chapter="1"><b>Capitulo 1</b><span class="status"></span></a></li>
-                    <li><a href="https://zplayer.io/?v=3RUqNoaLGo" class="chapter-link" data-chapter="2"><b>Capitulo 2</b><span class="status"></span></a></li>
-                    <li><a href="https://zplayer.io/?v=GtqJ2-Zij65" class="chapter-link" data-chapter="3"><b>Capitulo 3</b><span class="status"></span></a></li>
-                    <li><a href="https://zplayer.io/?v=XTEfVP5NBo" class="chapter-link" data-chapter="4"><b>Capitulo 4</b><span class="status"></span></a></li>
-                    <li><a href="https://zplayer.io/?v=GOqCdVm2m" class="chapter-link" data-chapter="5"><b>Capitulo 5</b><span class="status"></span></a></li>
-                    <li><a href="https://zplayer.io/?v=5Le1kBUQK3" class="chapter-link" data-chapter="6"><b>Capitulo 6</b><span class="status"></span></a></li>
-                    <li><a href="https://zplayer.io/?v=1lckBkS124" class="chapter-link" data-chapter="7"><b>Capitulo 7</b><span class="status"></span></a></li>
-                    <li><a href="https://zplayer.io/?v=9Xer-dyPyN" class="chapter-link" data-chapter="8"><b>Capitulo 8</b><span class="status"></span></a></li>
-                    <li><a href="https://zplayer.io/?v=kOojXjrR3o" class="chapter-link" data-chapter="9"><b>Capitulo 9</b><span class="status"></span></a></li>
-                    <li><a href="https://zplayer.io/?v=a21dliAbAz" class="chapter-link" data-chapter="10"><b>Capitulo 10</b><span class="status"></span></a></li>
-                    <li><a href="https://zplayer.io/?v=nDd6u8JI7E" class="chapter-link" data-chapter="11"><b>Capitulo 11</b><span class="status"></span></a></li>
-                    <li><a href="https://zplayer.io/?v=g4Qgc4oWz8" class="chapter-link" data-chapter="12"><b>Capitulo 12</b><span class="status"></span></a></li>
-                </ul>
-            </li>
-
-    </div><br><br><br><br><br><br>
-    <!--section class="screenshots">
-        <strong>DESCARGAR</strong>
-        <!--screenshots-container---------
-        <div class="screen-s-container">
-            <img src="Movie-Data/Pirates-of-the-Caribbean-Salazar's-Revenge/screenshot-1.jpg" alt="">
-            <img src="Movie-Data/Pirates-of-the-Caribbean-Salazar's-Revenge/screenshot-2.jpg" alt="">
-            <img src="Movie-Data/Pirates-of-the-Caribbean-Salazar's-Revenge/screenshot-3.jpg" alt="">
-            <img src="Movie-Data/Pirates-of-the-Caribbean-Salazar's-Revenge/screenshot-4.jpg" alt="">
-        </div>
-    </section>-->
-    <!--Download====================================
-    <section class="download-movie">
-        <!--container---------------
-        <div class="download-container">
-            <!--box
-            <div class="download-box">
-                <span><i class="fas fa-server"></i><b>Server</b></span>
-                <span><b>English</b></span>
-                <span><b>720p</b></span>
-                <a href="#"> <b>Descargar</b></a>
-            </div>
-        </div>
-    </section>-->
-    <!--==footer==============================-->
-    <footer>
-        <!--footer-logo--->
-        <a href="index.html" class="logo">
-            STREANIME<span>ANIME</span>
-        </a>
-        <!--copyright----->
-        <span class="copyright">
-            Copyright 2023 - STREANIME
-        </span>
-    </footer>
-    <!--==jQuery=======================================-->
-    <script src="../jQuery.js"></script>
-    <script>
-        /*==scroll-progress-bar======================*/
-        let scrollPrecentage = () => {
-            let scrollProgress = document.getElementById("progress");
-            let progressValue = document.getElementById("progress-value");
-            let pos = document.documentElement.scrollTop;
-            let calcHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            let scrollValue = Math.round(pos * 100 / calcHeight);
-            scrollProgress.style.background = `conic-gradient(#e70634 ${scrollValue}%, #2b2f38 ${scrollValue}%)`;
-        }
-        window.onscroll = scrollPrecentage;
-        window.onload = scrollPrecentage;
-        /*--menu-btn-fixed-when-scroll============*/
-        $(window).scroll(function () {
-            if ($(document).scrollTop() > 20) {
-                $('.navigation').addClass('fix-icon');
-            }
-            else {
-                $('.navigation').removeClass('fix-icon');
-            }
-        });
-        /*==popup-open==================================*/
-        $(document).on('click', '.play-btn a', function () {
-            $('.play').addClass('active-popup');
-        });
-        /*==popup-Close==================================*/
-        $(document).on('click', '.close-movie', function () {
-            $('.play').removeClass('active-popup');
-        });
-        /*==auto-play-when-popup-open===================*/
-        $('.play-btn a').click(function () {
-            $('#m-video')[0].play();
-        });
-        /*==Close-video-when-poppup-close==============*/
-        $('.close-movie').click(function () {
-            $('#m-video')[0].pause();
-        });
-    </script>
-
-    <script>
-        function searchOnPage(event) {
-            event.preventDefault();
-
-            var searchText = document.getElementById('searchInput').value.toLowerCase();
-            var elements = document.getElementsByTagName('*');
-
-            for (var i = 0; i < elements.length; i++) {
-                var elementText = elements[i].textContent.toLowerCase();
-                if (elementText.indexOf(searchText) !== -1) {
-                    elements[i].scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    break; // Detiene el bucle después de encontrar la primera coincidencia
-                }
-            }
-        }
-
-    </script>
-
-    
-
-    <script>
-        $(function () {
-    var Accordion = function (el, multiple) {
-        this.el = el || {};
-        this.multiple = multiple || false;
-
-        var links = this.el.find('.link');
-
-        links.on('click', { el: this.el, multiple: this.multiple }, this.dropdown);
-        this.el.find('.chapter-link').on('click', this.markAsSeen);
-        
-        // Marcar capítulos vistos al cargar la página
-        this.markChaptersAsSeen();
-
-        // Manejar el botón de reinicio
-        $('#reset-seen').on('click', this.resetSeenChapters);
-    }
-
-    Accordion.prototype.dropdown = function (e) {
-        var $el = e.data.el;
-        var $this = $(this),
-            $next = $this.next();
-
-        $next.slideToggle();
-        $this.parent().toggleClass('open');
-
-        if (!e.data.multiple) {
-            $el.find('.submenu').not($next).slideUp().parent().removeClass('open');
-        }
-    }
-
-    Accordion.prototype.markAsSeen = function (e) {
-        e.preventDefault(); // Prevent default action of the link
-        var $this = $(this);
-        var chapterId = $this.data('chapter');
-        
-        $this.addClass('visto'); // Add 'visto' class to the clicked link
-        $this.find('.status').text('visto'); // Set 'visto' text
-
-        // Guardar el capítulo como visto en LocalStorage
-        var seenChapters = JSON.parse(localStorage.getItem('seenChapters')) || [];
-        if (!seenChapters.includes(chapterId)) {
-            seenChapters.push(chapterId);
-            localStorage.setItem('seenChapters', JSON.stringify(seenChapters));
-        }
-
-        window.location.href = $this.attr('href'); // Open the link in the same window
-    }
-
-    Accordion.prototype.markChaptersAsSeen = function () {
-        var seenChapters = JSON.parse(localStorage.getItem('seenChapters')) || [];
-        $('.chapter-link').each(function () {
-            var $this = $(this);
-            var chapterId = $this.data('chapter');
-            if (seenChapters.includes(chapterId)) {
-                $this.addClass('visto');
-                $this.find('.status').text('visto');
-            }
-        });
-    }
-
-    Accordion.prototype.resetSeenChapters = function () {
-        // Limpiar LocalStorage
-        localStorage.removeItem('seenChapters');
-        
-        // Limpiar la vista en la página
-        $('.chapter-link').removeClass('visto');
-        $('.chapter-link .status').text('');
-    }
-
-    var accordion = new Accordion($('#accordion'), false);
-});
-    </script>
-
-
-<!--reproduce la musica del anime-->
-<div id="music-popup">
-    <div id="music-popup-content">
-        <h2 style="color: #e70634;">Bienvenido a STREANIME</h2><br>
-        <p style="color: #fff;">Para continuar, por favor reproduce la música.</p><br>
-        <button id="play-button">
-            <i class="fas fa-play"></i> Reproducir
-        </button>
-    </div>
-</div>
-
-<!-- Botón de control de música -->
-<div id="music-control" style="display: none;">
-    <i class="fas fa-pause" id="music-icon"></i>
-</div>
-
-<!-- Audio element -->
-<audio id="background-music" loop>
-    <source src="../OPENINGS/Oshi-no-Ko-Opening-4k-60FPS-Creditless.mp3" type="audio/mpeg">
-    Tu navegador no soporta el elemento de audio.
-</audio>
-
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const popup = document.getElementById('music-popup');
-        const playButton = document.getElementById('play-button');
-        const musicControl = document.getElementById('music-control');
-        const musicIcon = document.getElementById('music-icon');
-        const audio = document.getElementById('background-music');
-
-        playButton.addEventListener('click', function() {
-            audio.play();
-            popup.style.display = 'none';
-            musicControl.style.display = 'block';
-            document.body.style.overflow = 'auto'; // Permite el scroll
-        });
-
-        musicControl.addEventListener('click', function() {
-            if (audio.paused) {
-                audio.play();
-                musicIcon.className = 'fas fa-pause';
-            } else {
-                audio.pause();
-                musicIcon.className = 'fas fa-play';
-            }
-        });
-
-        // Bloquear el scroll mientras el pop-up está visible
-        document.body.style.overflow = 'hidden';
-    });
-</script>
-</body>
-
-</html>
+	
+	
+	
+	  
+	
+	</style>
+	</head>
+	<body>
+	  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<div class="container">
+		  <a class="navbar-brand" href="#" id="homeLink">
+			<span class="stre-anime"></span><span class="emisiones">ANIMES &nbsp; EN &nbsp; EMISION</span>
+		  </a>
+		</div>
+	  </nav>
+	 
+	
+	
+	  <!-- Botón "Volver" -->
+	  <div class="mt-4 text-center">
+		<button id="volverBtn" class="btn btn-danger back-button">← Volver</button>
+	  </div>  
+	
+	  <div class="container mt-4">
+		<!-- Contenido dinámico de animes -->
+		<div class="content-grid" id="contentGrid">
+		  <!-- El contenido se cargará dinámicamente aquí -->
+		</div>
+		
+	  
+		<nav aria-label="Page navigation">
+		  <ul class="pagination" id="pagination">
+			<!-- La paginación se generará dinámicamente aquí -->
+		  </ul>
+		</nav>
+	  </div>
+	  
+	
+	  <footer class="bg-dark text-light py-4 mt-5">
+		<div class="container">	  
+		  <div class="row">
+			<div class="col-12 text-center">
+			  <p>&copy; 2024 StreAnime Emisiones. Tu fuente diaria de animes.</p>
+			</div>
+			<div class="col-md-6 footer-centered">
+				<h5>Síguenos</h5>
+				<ul class="list-inline">
+				  <!--<li class="list-inline-item"><a href="#" class="text-light"><i class="fab fa-facebook"></i></a></li>
+				  <li class="list-inline-item"><a href="#" class="text-light"><i class="fab fa-twitter"></i></a></li>
+				  <li class="list-inline-item"><a href="#" class="text-light"><i class="fab fa-instagram"></i></a></li>-->
+				  <li class="list-inline-item"><a href="https://t.me/+0ntBECEPmPFmNmQx" class="text-light" target="_blank"><i class="fab fa-telegram"></i></a></li>
+				</ul>
+			</div>			  
+		  </div>
+		</div>
+	  </footer>
+	
+	  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+	  <script>
+		const content = [
+		  {
+			title: "ONE PIECE",
+			image: "images/ONE PIECE.jpg",
+			type: "1999", 
+			chaptersLink: "ANIMES/ONE PIECE 1999.html"
+		  },      
+		  {
+			title: "Sengoku Youko",
+			image: "images/sengoku-youko.jpg",
+			type: "2024",
+			chaptersLink: "ANIMES/Sengoku Youko.html"
+		  },      
+		  {
+			title: "Naze Boku no Sekai wo Daremo Oboeteinai no ka?",
+			image: "images/Naze Boku no Sekai wo Daremo Oboeteinai no ka.jpg",
+			type: "2024",       
+			chaptersLink: "ANIMES/Naze Boku no Sekai wo Daremo Oboeteinai no ka.html"
+		  },
+		  {
+			title: "Make Heroine ga Oosugiru!",
+			image: "images/Make Heroine ga Oosugiru.jpg",
+			type: "2024", 
+			chaptersLink: "ANIMES/Make Heroine ga Oosugiru!.html"
+		  },      
+		  {
+			title: "Kimi to Boku no Saigo no Senjou, Aruiwa Sekai ga Hajimaru Seisen",
+			image: "images/Kimi to Boku no Saigo no Senjou, Aruiwa Sekai ga Hajimaru Seisen.jpg",
+			type: "2024",
+			chaptersLink: "ANIMES/Kimi to Boku no Saigo no Senjou, Aruiwa Sekai ga Hajimaru Seisen.html"
+		  },	  
+		  {
+			title: "Kami no Tou",
+			image: "images/Kami no Tou.jpg",
+			type: "2024",
+			chaptersLink: "ANIMES/Kami no Tou.html"
+		  },
+		  {
+			title: "Fairy Tail: 100-nen Quest",
+			image: "images/fairy-tail-100-nen-quest.jpg",
+			type: "2024",       
+			chaptersLink: "ANIMES/Fairy Tail.html"
+		  },      
+		  {
+			title: "Tsue to Tsurugi no Wistoria",
+			image: "images/Tsue to Tsurugi no Wistoria.jpg",
+			type: "2024",       
+			chaptersLink: "ANIMES/Tsue to Tsurugi no Wistoria.html"
+		  },		        
+		  {
+			title: "0-saiji Start Dash Monogatari",
+			image: "images/0-saiji Start Dash Monogatari.jpg",
+			type: "2024",
+			chaptersLink: "ANIMES/0-saiji Start Dash Monogatari.html"
+		  },
+		  {
+			title: "Shoushimin Series",
+			image: "images/Shoushimin Series.jpg",
+			type: "2024",
+			chaptersLink: "ANIMES/Shoushimin Series.html"
+		  },
+		  {
+			title: "Nige Jouzu no Wakagimi",
+			image: "images/Nige Jouzu no Wakagimi.jpg",
+			type: "2024",       
+			chaptersLink: "ANIMES/Nige Jouzu no Wakagimi.html"
+		  },      
+		  {
+			title: "Katsute Mahou Shoujo to Aku wa Tekitai shiteita",
+			image: "images/Katsute Mahou Shoujo to Aku wa Tekitai shiteita.jpg",
+			type: "2024",       
+			chaptersLink: "ANIMES/Katsute Mahou Shoujo to Aku wa Tekitai shiteita.html"
+		  },
+		  {
+			title: "Detective Conan",
+			image: "images/Detective Conan.jpg",
+			type: "1996", 
+			chaptersLink: "ANIMES/Detective Conan.html"
+		  },
+		  {
+			title: "Tensui no Sakuna-hime",
+			image: "images/Tensui no Sakuna-hime.jpg",
+			type: "2024",
+			chaptersLink: "ANIMES/Tensui no Sakuna-hime.html"
+		  },
+		  {
+			title: "Grendizer U",
+			image: "images/Grendizer U.jpg",
+			type: "2024",       
+			chaptersLink: "ANIMES/Grendizer U.html"
+		  },
+		  {
+			title: "2.5-jigen no Ririsa",
+			image: "images/2.5-jigen no Ririsa.jpg",
+			type: "2024", 
+			chaptersLink: "ANIMES/2.5-jigen no Ririsa.html"
+		  },
+		  {
+			title: "Cardfight!! Vanguard: Divinez",
+			image: "images/Cardfight!! Vanguard Divinez Season 2 ULTIMA.jpg",
+			type: "2024",       
+			chaptersLink: "ANIMES/Cardfight!! Vanguard.html"
+		  },
+		  {
+			title: "Tasuuketsu",
+			image: "images/Tasuuketsu.jpg",
+			type: "2024",       
+			chaptersLink: "ANIMES/Tasuuketsu.html"
+		  },      
+		  {
+			title: "Boku no Hero Academia Temporada 7",
+			image: "images/Boku no Hero Academia 7th Season.jpg",
+			type: "2024",
+			chaptersLink: "ANIMES/Boku no Hero Academia.html"
+		  },
+		  {
+			title: "Sasayaku You ni Koi wo Utau",
+			image: "images/Sasayaku You ni Koi wo Utau.jpg",
+			type: "2024",
+			chaptersLink: "ANIMES/Sasayaku You ni Koi wo Utau.html"
+		  },
+		  {
+			title: "Shadowverse Flame: Arc-hen",
+			image: "images/Shadowverse Flame Arc-hen EMISION.jpg",
+			type: "2024",       
+			chaptersLink: "ANIMES/Shadowverse.html"
+		  },      
+		  {
+			title: "Yozakura-san Chi no Daisakusen",
+			image: "images/Yozakura-san Chi no Daisakusen.jpg",
+			type: "2024",       
+			chaptersLink: "ANIMES/Yozakura-san Chi no Daisakusen.html"
+		  },
+		  {
+			title: "Himitsu no AiPri",
+			image: "images/Himitsu no AiPri.jpg",
+			type: "2024",       
+			chaptersLink: "ANIMES/Himitsu no AiPri.html"
+		  },
+		  {
+			title: "Shinkalion Change the World",
+			image: "images/Shinkalion Change the World.jpg",
+			type: "2024", 
+			chaptersLink: "ANIMES/Shinkalion Change the World.html"
+		  },      
+		  {
+			title: "Delico's Nursery",
+			image: "images/Delico's Nursery.jpg",
+			type: "2024",
+			chaptersLink: "ANIMES/Delico's Nursery.html"
+		  },
+		  {
+			title: "The Fable",
+			image: "images/The Fable.jpg",
+			type: "2024",
+			chaptersLink: "ANIMES/The Fable.html"
+		  },
+		  {
+			title: "Wonderful Precure!",
+			image: "images/Wonderful Precure!.jpg",
+			type: "2024", 
+			chaptersLink: "ANIMES/Wonderful Precure!.html"
+		  },      
+		  {
+			title: "Dead Dead Demons Dededede Destruction",
+			image: "images/Dead Dead Demons Dededede Destruction.jpg",
+			type: "2024",
+			chaptersLink: "ANIMES/Dead Dead Demons Dededede Destruction.html"
+		  },
+		  {
+			title: "Yeosin Gangnim",
+			image: "images/Yeosin Gangnim.jpg",
+			type: "2024",
+			chaptersLink: "ANIMES/Yeosin Gangnim.html"
+		  },
+		  {
+			title: "Murai no Koi",
+			image: "images/Murai no Koi.webp",
+			type: "2024",       
+			chaptersLink: "ANIMES/Murai no Koi.html"
+		  },
+		  {
+			title: "Maou-sama, Retry! R",
+			image: "images/Maou-sama, Retry! R.jpg",
+			type: "2024",       
+			chaptersLink: "ANIMES/Maou-sama, Retry!.html"
+		  },
+		  {
+			title: "Tensei Kizoku, Kantei Skill de Nariagaru",
+			image: "images/Tensei Kizoku, Kantei Skill de Nariagaru 2nd Season.jpg",
+			type: "2024",       
+			chaptersLink: "ANIMES/Tensei Kizoku, Kantei Skill de Nariagaru.html"
+		  },
+		  {
+			title: "Nageki no Bourei wa Intai shitai",
+			image: "images/Nageki no Bourei wa Intai shitai.jpg",
+			type: "2024",       
+			chaptersLink: "ANIMES/Nageki no Bourei wa Intai shitai.html"
+		  },
+		  {
+			title: "Saikyou no Shienshoku Wajutsushi de Aru Ore wa Sekai Saikyou Clan wo Shitagaeru",
+			image: "images/Saikyou no Shienshoku Wajutsushi de Aru Ore wa Sekai Saikyou Clan wo Shitagaeru.jpg",
+			type: "2024",       
+			chaptersLink: "ANIMES/Saikyou no Shienshoku Wajutsushi de Aru Ore wa Sekai Saikyou Clan wo Shitagaeru.html"
+		  },
+		  {
+			title: "Amagami-san Chi no Enmusubi",
+			image: "images/Amagami-san Chi no Enmusubi.jpg",
+			type: "2024",       
+			chaptersLink: "ANIMES/Amagami-san Chi no Enmusubi.html"
+		  },
+		  {
+			title: "Rekishi ni Nokoru Akujo ni Naru zo",
+			image: "images/Rekishi ni Nokoru Akujo ni Naru zo.jpg",
+			type: "2024",       
+			chaptersLink: "ANIMES/Rekishi ni Nokoru Akujo ni Naru zo.html"
+		  },
+		  {
+			title: "Acro Trip",
+			image: "images/Acro Trip.jpg",
+			type: "2024", 
+			chaptersLink: "ANIMES/Acro Trip.html"
+		  },
+		  {
+			title: "Re:Zero kara Hajimeru Isekai Seikatsu TEMPORADA 3",
+			image: "images/Re Zero kara Hajimeru Isekai Seikatsu temp3.jpg",
+			type: "2024", 
+			chaptersLink: "ANIMES/ReZero kara Hajimeru Isekai Seikatsu.html"
+		  },
+		  {
+			title: "Shin Tennis no Oujisama U-17 World Cup Semifinal",
+			image: "images/Shin Tennis no Oujisama U-17 World Cup Semifinal.jpg",
+			type: "2024", 
+			chaptersLink: "ANIMES/Shin Tennis no Oujisama U-17 World Cup.html"
+		  },
+		  {
+			title: "Kamierabi Temporada 2",
+			image: "images/Kamierabi temporada 2.jpg",
+			type: "2024", 
+			chaptersLink: "ANIMES/Kamierabi.html"
+		  },
+		  {
+			title: "Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka TEMP 5",
+			image: "images/Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka temp 5.jpg",
+			type: "2024", 
+			chaptersLink: "ANIMES/Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka.html"
+		  },
+		  {
+			title: "Kinoko Inu",
+			image: "images/Kinoko Inu.jpg",
+			type: "2024", 
+			chaptersLink: "ANIMES/Kinoko Inu.html"
+		  },
+		  {
+			title: "Kekkon suru tte, Hontou desu ka",
+			image: "images/Kekkon suru tte, Hontou desu ka.jpg",
+			type: "2024", 
+			chaptersLink: "ANIMES/Kekkon suru tte, Hontou desu ka.html"
+		  },
+		  {
+			title: "Dandadan",
+			image: "images/Dandadan.jpg",
+			type: "2024", 
+			chaptersLink: "ANIMES/Dandadan.html"
+		  },
+		  {
+			title: "Trillion Game",
+			image: "images/Trillion Game.jpg",
+			type: "2024", 
+			chaptersLink: "ANIMES/Trillion Game.html"
+		  },
+		  {
+			title: "Mecha-ude (TV)",
+			image: "images/Mecha-ude (TV).jpg",
+			type: "2024", 
+			chaptersLink: "ANIMES/Mecha-ude (TV).html"
+		  },
+		  {
+			title: "Ao no Hako",
+			image: "images/Ao no Hako.jpg",
+			type: "2024", 
+			chaptersLink: "ANIMES/Ao no Hako.html"
+		  },
+		  {
+			title: "Sayounara Ryuusei, Konnichiwa Jinsei",
+			image: "images/Sayounara Ryuusei, Konnichiwa Jinsei.jpg",
+			type: "2024", 
+			chaptersLink: "ANIMES/Sayounara Ryuusei, Konnichiwa Jinsei.html"
+		  },
+		  {
+			title: "Rurouni Kenshin: Meiji Kenkaku Romantan - Kyoto Douran",
+			image: "images/Rurouni Kenshin Meiji Kenkaku Romantan - Kyoto Douran H.webp",
+			type: "2024", 
+			chaptersLink: "ANIMES/Rurouni Kenshin Meiji Kenkaku Romantan.html"
+		  },
+		  {
+			title: "Sword Art Online Alternative: Gun Gale Online Temporada 2",
+			image: "images/Sword Art Online Alternative Gun Gale Online II.jpg",
+			type: "2024", 
+			chaptersLink: "ANIMES/Sword Art Online Alternative Gun Gale Online.html"
+		  },
+		  {
+			title: "Kabushikigaisha Magi-Lumière",
+			image: "images/Kabushikigaisha Magi-Lumière.jpg",
+			type: "2024", 
+			chaptersLink: "ANIMES/Kabushikigaisha Magi-Lumière.html"
+		  },
+		  {
+			title: "Mahoutsukai ni Narenakatta Onnanoko no Hanashi",
+			image: "images/Mahoutsukai ni Narenakatta Onnanoko no Hanashi.jpg",
+			type: "2024", 
+			chaptersLink: "ANIMES/Mahoutsukai ni Narenakatta Onnanoko no Hanashi.html"
+		  },
+		  {
+			title: "The iDOLM@STER Shiny Colors",
+			image: "images/The iDOLM@STER Shiny Colors 2nd Season.jpg",
+			type: "2024", 
+			chaptersLink: "ANIMES/The iDOLM@STER Shiny Colors.html"
+		  },
+		  {
+			title: "Goukon ni Ittara Onna ga Inakatta Hanashi",
+			image: "images/Goukon ni Ittara Onna ga Inakatta Hanashi.jpg",
+			type: "2024", 
+			chaptersLink: "ANIMES/Goukon ni Ittara Onna ga Inakatta Hanashi.html"
+		  },
+		  {
+			title: "Ooi! Tonbo",
+			image: "images/Ooi! Tonbo.jpg",
+			type: "2024", 
+			chaptersLink: "ANIMES/Ooi! Tonbo.html"
+		  },
+		];
+	
+		const itemsPerPage = 12;
+		let currentPage = 1;
+		let originalContent;
+	
+		document.addEventListener('DOMContentLoaded', () => {
+		  originalContent = document.body.innerHTML;
+		  loadContent(currentPage);
+		  addDayFilterListeners();
+		  addHomeLinkListener();
+		});
+	
+		function loadContent(page) {
+	  const contentGrid = document.getElementById('contentGrid');
+	  contentGrid.innerHTML = '';
+	  
+	  const start = (page - 1) * itemsPerPage;
+	  const end = start + itemsPerPage;
+	  const pageContent = content.slice(start, end);
+	
+	  pageContent.forEach(item => {
+		const card = document.createElement('div');
+		card.className = 'content-card';
+		card.innerHTML = `
+		  <img src="${item.image}" alt="${item.title}" width="200" height="300">
+		  <div class="content-type">${item.type}</div>
+		  <h3>${item.title}</h3>
+		`;
+		card.addEventListener('click', () => {
+		  window.location.href = item.chaptersLink; // Redirige al enlace del anime
+		});
+		contentGrid.appendChild(card);
+	  });
+	
+	  updatePagination();
+	}
+	
+	document.addEventListener('DOMContentLoaded', () => {
+	  // Cargar contenido de la página
+	  loadContent(currentPage);
+	
+	  // Evento para el botón "Volver"
+	  const volverBtn = document.getElementById('volverBtn');
+	  volverBtn.addEventListener('click', () => {
+		window.location.href = 'inicio.html'; // Cambia 'index.html' por la URL deseada
+	  });
+	});
+	
+	
+	
+		function updatePagination() {
+		  const totalPages = Math.ceil(content.length / itemsPerPage);
+		  const pagination = document.getElementById('pagination');
+		  pagination.innerHTML = '';
+	
+		  for (let i = 1; i <= totalPages; i++) {
+			const li = document.createElement('li');
+			li.className = `page-item ${i === currentPage ? 'active' : ''}`;
+			li.innerHTML = `<a class="page-link" href="#" data-page="${i}">${i}</a>`;
+			pagination.appendChild(li);
+		  }
+	
+		  pagination.addEventListener('click', function(e) {
+			e.preventDefault();
+			if (e.target.tagName === 'A') {
+			  currentPage = parseInt(e.target.getAttribute('data-page'));
+			  loadContent(currentPage);
+			}
+		  });
+		}
+	
+		function openAnimeDetails(anime) {
+		  const animeDetailsPage = createAnimeDetailsPage(anime);
+		  document.body.innerHTML = animeDetailsPage;
+	
+		  document.querySelector('.back-button').addEventListener('click', goToHome);
+		  addHomeLinkListener();
+		}
+	
+		function createAnimeDetailsPage(anime) {
+		  return `
+			<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			  <div class="container">
+				<a class="navbar-brand" href="#" id="homeLink">
+				  <span class="stre-anime">StreAnime</span> <span class="emisiones">Emisiones</span>
+				</a>
+			  </div>
+			</nav>
+			<div class="container mt-4">
+			  <button class="btn btn-primary back-button mb-3">← Volver</button>
+			  <div class="row">
+				<div class="col-md-4">
+				  <img src="${anime.image}" alt="${anime.title}" class="img-fluid anime-detail-image">
+				</div>
+				<div class="col-md-8">
+				  <h2 class="mb-4 anime-title">${anime.title}</h2><br>
+				  <h4 class="mb-3 synopsis-title">Sinopsis</h4>
+				  <p class="synopsis-content">${anime.synopsis}</p><br><br>
+				  <p><strong>Género:</strong> ${anime.genres.join(', ')}</p>
+				  <p><strong>Idioma:</strong> ${anime.language}</p>
+				</div>
+			  </div><br><br><br>
+			  <div class="row mt-4">
+				<div class="col-12">              
+				  <div class="episode-list">
+				<ul class="list-group chapter-list">
+				  <li class="list-group-item" style="padding: 0; display: inline-block; background-color: #e50914; border-radius: 5px;">
+					<a href="${anime.chaptersLink}" style="color: inherit; text-decoration: none;">
+					  <h3 class="mb-3 chapters-title text-center" style="transition: color 0.3s; margin: 5px; padding: 5px;">Capítulos</h3>
+					</a>                      
+				  </li>
+				</ul>
+			  </div>
+				</div>
+			  </div>
+			</div>
+			<footer class="bg-dark text-light py-4 mt-5">
+			  <div class="container">
+				<div class="row">
+				  <div class="col-md-6">
+					<h5>StreAnime Emisiones</h5>
+					<p>Tu fuente diaria de anime en español.</p>
+				  </div>
+				  <div class="col-md-6">
+					<h5>Síguenos</h5>
+					<ul class="list-inline">
+					  <li class="list-inline-item"><a href="#" class="text-light"><i class="fab fa-facebook"></i></a></li>
+					  <li class="list-inline-item"><a href="#" class="text-light"><i class="fab fa-twitter"></i></a></li>
+					  <li class="list-inline-item"><a href="#" class="text-light"><i class="fab fa-instagram"></i></a></li>
+					</ul>
+				  </div>
+				</div>
+				<hr>
+				<div class="row">
+				  <div class="col-12 text-center">
+					<p>&copy; 2024 StreAnime Emisiones. Todos los derechos reservados.</p>
+				  </div>
+				</div>
+			  </div>
+			</footer>
+		  `;
+		}
+	
+		function goToHome(e) {
+		  if (e) e.preventDefault();
+		  currentPage = 1;
+		  document.body.innerHTML = originalContent;
+		  loadContent(currentPage);
+		  adjustLayout();
+		  addDayFilterListeners();
+		  addHomeLinkListener();
+		}
+	
+		function addHomeLinkListener() {
+		  const homeLink = document.getElementById('homeLink');
+		  if (homeLink) {
+			homeLink.addEventListener('click', goToHome);
+		  }
+		}
+	
+		function addDayFilterListeners() {
+		  document.querySelectorAll('.nav-link').forEach(link => {
+			link.addEventListener('click', function(e) {
+			  e.preventDefault();
+			  const day = this.textContent.toLowerCase();
+			  filterByDay(day);
+			});
+		  });
+		}
+	
+		function filterByDay(day) {
+		  const filteredContent = content.filter(item => item.day.toLowerCase() === day.toLowerCase());
+		  const contentGrid = document.getElementById('contentGrid');
+		  contentGrid.innerHTML = '';
+		  
+		  filteredContent.forEach(item => {
+			const card = document.createElement('div');
+			card.className = 'content-card';
+			card.innerHTML = `
+			  <img src="${item.image}" alt="${item.title}" width="200" height="300">
+			  <div class="content-type">${item.type}</div>
+			  <h3>${item.title}</h3>
+			`;
+			card.addEventListener('click', () => openAnimeDetails(item));
+			contentGrid.appendChild(card);
+		  });
+	
+		  document.getElementById('pagination').style.display = 'none';
+		}
+	
+		function adjustLayout() {
+		  const width = window.innerWidth;
+		  const contentGrid = document.getElementById('contentGrid');
+		  
+		  if (width < 576) {
+			contentGrid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(120px, 1fr))';
+		  } else if (width < 768) {
+			contentGrid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(150px, 1fr))';
+		  } else if (width < 992) {
+			contentGrid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(180px, 1fr))';
+		  } else if (width < 1200) {
+			contentGrid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(200px, 1fr))';
+		  } else {
+			contentGrid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(250px, 1fr))';
+		  }
+		}
+	
+		window.addEventListener('resize', adjustLayout);
+		document.addEventListener('DOMContentLoaded', adjustLayout);
+	  </script>
+	</body>
+	</html>
