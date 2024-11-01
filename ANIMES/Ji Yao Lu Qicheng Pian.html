@@ -1,0 +1,455 @@
+<!--doctype html-->
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--==Title==================================-->
+    <title>STREANIME-Ji Yao Lu Qicheng Pian</title>
+    <!--Stylesheet(CSS)==========================-->
+    <link rel="stylesheet" href="../style streanime.css" />
+    <!--==Fav-icon===============================-->
+    <link rel="shortcut icon" href="../PROYECTO YOUTUBE/Images/Images/fav-icon.png" />
+    <!--==Import-poppins-font====================-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <!--==Import-Monoton-Font====================-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
+    <!--==Using-Font-Awesome======================-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .status {
+            margin-left: auto;
+            color: #e70634;
+            font-weight: bold;
+            display: inline-block;
+            white-space: nowrap;
+
+        }
+
+        .accordion {
+            width: 100%;
+            max-width: 384px;
+            margin: 30px auto 20px;
+            background: #080800;
+            border-radius: 4px;
+            /* Ajustado a 4px para hacer juego con el botón */
+            box-shadow: 0 4px 12px rgba(231, 6, 52, 0.5);
+        }
+
+        .accordion :hover {
+            background-color: #e20000;
+            transition: all ease 0.2s;
+            box-shadow: inset 0 0 20px rgba(49, 138, 172, 0.5), 0 0 20px rgba(49, 138, 172, 0.4);
+            outline-color: rgba(49, 138, 172, 0);
+            outline-offset: 80px;
+            text-shadow: 1px 1px 6px #fff;
+        }
+
+        .accordion .link {
+            cursor: pointer;
+            display: block;
+            padding: 15px 15px 15px 42px;
+            color: #e70634;
+            font-size: 16px;
+            font-weight: 700;
+            border-bottom: 1px solid #e70634;
+            position: relative;
+            -webkit-transition: all 0.4s ease;
+            -o-transition: all 0.4s ease;
+            transition: all 0.4s ease
+        }
+
+        .accordion li:last-child .link {
+            border-bottom: 1
+        }
+
+        .accordion li i {
+            position: absolute;
+            top: 16px;
+            left: 12px;
+            font-size: 18px;
+            color: #e70634;
+            -webkit-transition: all 0.4s ease;
+            -o-transition: all 0.4s ease;
+            transition: all 0.4s ease;
+        }
+
+        .accordion li i.fa-chevron-down {
+            right: 12px;
+            left: auto;
+            font-size: 16px;
+        }
+
+        .accordion li.open .link {
+            color: #e70634;
+        }
+
+        .accordion li.open i {
+            color: #e70634;
+        }
+
+        .accordion li.open i.fa-chevron-down {
+            -webkit-transform: rotate(180deg);
+            -ms-transform: rotate(180deg);
+            -o-transform: rotate(180deg);
+            transform: rotate(180deg)
+        }
+
+        .submenu {
+            display: none;
+            background: #080800;
+            font-size: 14px;
+        }
+
+        .submenu li {
+            border-bottom: 1px solid #e70634;
+        }
+
+        .submenu a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #e70634;
+            padding: 12px;
+            padding-left: 42px;
+            transition: all 0.25s ease;
+            background: #080800;
+        }
+
+        .submenu a:hover {
+            background: #e70634;
+            color: #FFF;
+        }
+
+        #reset-seen {
+            display: block;
+            margin: 20px auto;
+            padding: 15px 42px;
+            color: #e70634;
+            font-size: 16px;
+            font-weight: 700;
+            background-color: #080800;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            border-radius: 4px;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 10px rgba(231, 6, 52, 0.5);
+            /* Sombra blanca clara */
+        }
+
+        #reset-seen:hover {
+            background-color: #e70634;
+            transition: all ease 0.2s;
+            box-shadow: inset 0 0 20px rgba(49, 138, 172, 0.5), 0 0 20px rgba(49, 138, 172, 0.4);
+            outline-color: rgba(49, 138, 172, 0);
+            outline-offset: 60px;
+            text-shadow: 1px 1px 6px #fff;
+            color: #FFF;
+        }
+
+
+
+        .chapter-link.visto b {
+            color: gray !important;
+            /* Color gris para el texto del capítulo visto */
+            text-decoration: line-through !important;
+            /* Tachado para el texto del capítulo */
+        }
+
+        .chapter-link.visto .status {
+            color: inherit;
+            /* Hereda el color del texto del capítulo */
+            text-decoration: none;
+            /* Sin tachado para la palabra "visto" */
+        }
+    </style>
+</head>
+
+<body>
+    <!--==Navigation===================================-->
+    <nav class="navigation">
+        <!--menu-btn--------------->
+        <input type="checkbox" class="menu-btn" id="menu-btn">
+        <label for="menu-btn" class="menu-icon">
+            <span class="nav-icon"></span>
+        </label>
+        <!--logo------------------->
+        <a href="../inicio.html" class="logo">
+            STREANIME<span></span>
+        </a>
+        <!--menu------------------->
+        <ul class="menu">
+            <li><a href="../inicio.html">Inicio</a></li>
+            <li><a href="../TODOS LOS ANIMES.html">ANIMES</a></li>
+            <li><a href="../ANIMES EMISION.html">EN &nbsp; EMISION</a></li>
+            <!--<li><a href="../TODAS LAS PELICULAS.html">PELICULAS</a></li>-->
+            <li><a href="https://t.me/+-UvtU02g5sI2ZmFh">CONTACTAME</a></li>
+        </ul>
+        <!--Search-box------------->
+        <form action="../BUSCADOR STREANIME.html" class="search-box" method="get">
+            <button type="submit"><i class="fas fa-search"></i> BUSCAR</button>
+        </form>
+    </nav>
+    <!--nav-end-->
+    <!--==Movie-Banner=========================================-->
+    <section class="movie-banner">
+        <!--==img==================================-->
+        <div class="m-banner-img">
+            <img src="../images/Ji Yao Lu Qicheng Pian H.jpg" alt="">
+        </div>
+        <!--content================================-->
+        <div class="banner-container">
+            <!--title-container*******************----->
+            <div class="title-container">
+                <!--title-top===============-->
+                <div class="title-top">
+                    <!--title----->
+                    <div class="movie-title">
+                        <h1>Ji Yao Lu: Qicheng Pian (2024)</h1>
+                    </div>
+                    <!--more-about-movie-->
+                    <div class="more-about-movie">
+                        <span class="sinopsis"><b>SINOPSIS</b></span>
+                        <span>Wu Cheng'en describe vívidamente un mundo lleno de fantasías y mitos en su novela del
+                            siglo XVI "Viaje al Oeste". Algunos dicen que su relato no es mera ficción, sino una
+                            experiencia personal. Únete a él y a sus compañeros en un legendario viaje de peregrinación
+                            a las «Regiones Occidentales» en su intento de alcanzar la Iluminación a través de muchas
+                            pruebas y penurias.
+                        </span>
+                        <span></span>
+                    </div>
+                    <!--language--------->
+                    <div class="language">
+                        <span><b>Japonés subtitulado</b></span>
+                    </div>
+                </div><br>
+                <!--Title-botttom==========================-->
+                <div class="title-bottom">
+                    <!--category------->
+                    <div class="category">
+                        <strong><b>Category</b></strong><br />
+                        <a href="#"><b>Fantasia, Comedia, Aventura</b></a>
+                    </div>
+                    <!--pelicula-btn
+                    <a href="link de la pelicula" class="watch-btn"><b>Ver Anime</b></a>---->
+                </div>
+            </div>
+            <!--play-btn******************************--->
+
+            <!--Video/full-Movie***************************-->
+
+            <!--movie------->
+        </div>
+    </section>
+    <!--Banner-end------------->
+    <!--details=====================================
+    <section class="movie-details">
+        <strong>Pirates of the Caribean: Salazar's Revenge</strong>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, veniam architecto, debitis quia similique
+            adipisci autem quod eligendi delectus dolorum iusto. Eius, nobis ducimus! Corrupti nobis id itaque facere a.
+        </p>
+    </section>-->
+    <!--==ScreenShots===============================-->
+    <button id="reset-seen">Resetear Capítulos Vistos</button>
+    <div>
+        <ul id="accordion" class="accordion">
+            <li>
+                <div class="link"><i class="fa fa-tv"></i>Temporada 1 (EN EMISION)<i class="fa fa-chevron-down"></i>
+                </div>
+                <ul class="submenu">
+                    <li><a href="https://zplayer.io/?v=xu1oIDjU3E" class="chapter-link" data-chapter="1"ata-anime="ji yao lu"><b>Capitulo 1</b><span class="status"></span></a></li>
+                    <li><a href="https://zplayer.io/?v=iKfZzFIKd1" class="chapter-link" data-chapter="2"ata-anime="ji yao lu"><b>Capitulo 2</b><span class="status"></span></a></li>
+                    <li><a href="https://zplayer.io/?v=UW95_tbNo_" class="chapter-link" data-chapter="3"ata-anime="ji yao lu"><b>Capitulo 3</b><span class="status"></span></a></li>
+                    <li><a href="https://zplayer.io/?v=v-QDCQnjR2" class="chapter-link" data-chapter="4"ata-anime="ji yao lu"><b>Capitulo 4</b><span class="status"></span></a></li>
+                    <li><a href="https://zplayer.io/?v=GEZctulELM" class="chapter-link" data-chapter="5"ata-anime="ji yao lu"><b>Capitulo 5</b><span class="status"></span></a></li>
+                    <li><a href="https://zplayer.io/?v=qHVjgDb9OU" class="chapter-link" data-chapter="6"ata-anime="ji yao lu"><b>Capitulo 6</b><span class="status"></span></a></li>
+                    <li><a href="https://zplayer.io/?v=HkIy-j8gXqe" class="chapter-link" data-chapter="7"ata-anime="ji yao lu"><b>Capitulo 7</b><span class="status"></span></a></li>
+                    <li><a href="https://zplayer.io/?v=Rp5tLL0vBH" class="chapter-link" data-chapter="8"ata-anime="ji yao lu"><b>Capitulo 8</b><span class="status"></span></a></li>
+                </ul>
+            </li>
+
+    </div><br><br><br><br><br><br>
+    <!--section class="screenshots">
+        <strong>DESCARGAR</strong>
+        <!--screenshots-container---------
+        <div class="screen-s-container">
+            <img src="Movie-Data/Pirates-of-the-Caribbean-Salazar's-Revenge/screenshot-1.jpg" alt="">
+            <img src="Movie-Data/Pirates-of-the-Caribbean-Salazar's-Revenge/screenshot-2.jpg" alt="">
+            <img src="Movie-Data/Pirates-of-the-Caribbean-Salazar's-Revenge/screenshot-3.jpg" alt="">
+            <img src="Movie-Data/Pirates-of-the-Caribbean-Salazar's-Revenge/screenshot-4.jpg" alt="">
+        </div>
+    </section>-->
+    <!--Download====================================
+    <section class="download-movie">
+        <!--container---------------
+        <div class="download-container">
+            <!--box
+            <div class="download-box">
+                <span><i class="fas fa-server"></i><b>Server</b></span>
+                <span><b>English</b></span>
+                <span><b>720p</b></span>
+                <a href="#"> <b>Descargar</b></a>
+            </div>
+        </div>
+    </section>-->
+    <!--==footer==============================-->
+    <footer>
+        <!--footer-logo--->
+        <a href="index.html" class="logo">
+            STREANIME<span>ANIME</span>
+        </a>
+        <!--copyright----->
+        <span class="copyright">
+            Copyright 2023 - STREANIME
+        </span>
+    </footer>
+    <!--==jQuery=======================================-->
+    <script src="../jQuery.js"></script>
+    <script>
+        /*==scroll-progress-bar======================*/
+        let scrollPrecentage = () => {
+            let scrollProgress = document.getElementById("progress");
+            let progressValue = document.getElementById("progress-value");
+            let pos = document.documentElement.scrollTop;
+            let calcHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrollValue = Math.round(pos * 100 / calcHeight);
+            scrollProgress.style.background = `conic-gradient(#e70634 ${scrollValue}%, #2b2f38 ${scrollValue}%)`;
+        }
+        window.onscroll = scrollPrecentage;
+        window.onload = scrollPrecentage;
+        /*--menu-btn-fixed-when-scroll============*/
+        $(window).scroll(function () {
+            if ($(document).scrollTop() > 20) {
+                $('.navigation').addClass('fix-icon');
+            }
+            else {
+                $('.navigation').removeClass('fix-icon');
+            }
+        });
+        /*==popup-open==================================*/
+        $(document).on('click', '.play-btn a', function () {
+            $('.play').addClass('active-popup');
+        });
+        /*==popup-Close==================================*/
+        $(document).on('click', '.close-movie', function () {
+            $('.play').removeClass('active-popup');
+        });
+        /*==auto-play-when-popup-open===================*/
+        $('.play-btn a').click(function () {
+            $('#m-video')[0].play();
+        });
+        /*==Close-video-when-poppup-close==============*/
+        $('.close-movie').click(function () {
+            $('#m-video')[0].pause();
+        });
+    </script>
+
+    <script>
+        function searchOnPage(event) {
+            event.preventDefault();
+
+            var searchText = document.getElementById('searchInput').value.toLowerCase();
+            var elements = document.getElementsByTagName('*');
+
+            for (var i = 0; i < elements.length; i++) {
+                var elementText = elements[i].textContent.toLowerCase();
+                if (elementText.indexOf(searchText) !== -1) {
+                    elements[i].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    break; // Detiene el bucle después de encontrar la primera coincidencia
+                }
+            }
+        }
+
+    </script>
+
+
+
+    <script>
+        $(function () {
+            var Accordion = function (el, multiple) {
+                this.el = el || {};
+                this.multiple = multiple || false;
+
+                var links = this.el.find('.link');
+
+                links.on('click', { el: this.el, multiple: this.multiple }, this.dropdown);
+                this.el.find('.chapter-link').on('click', this.markAsSeen);
+
+                // Marcar capítulos vistos al cargar la página
+                this.markChaptersAsSeen();
+
+                // Manejar el botón de reinicio
+                $('#reset-seen').on('click', this.resetSeenChapters);
+            }
+
+            Accordion.prototype.dropdown = function (e) {
+                var $el = e.data.el;
+                var $this = $(this),
+                    $next = $this.next();
+
+                $next.slideToggle();
+                $this.parent().toggleClass('open');
+
+                if (!e.data.multiple) {
+                    $el.find('.submenu').not($next).slideUp().parent().removeClass('open');
+                }
+            }
+
+            Accordion.prototype.markAsSeen = function (e) {
+                e.preventDefault(); // Prevent default action of the link
+                var $this = $(this);
+                var chapterId = $this.data('chapter');
+                var animeId = $this.data('anime'); // Añadimos el identificador de anime
+
+                $this.addClass('visto'); // Add 'visto' class to the clicked link
+                $this.find('.status').text('visto'); // Set 'visto' text
+
+                // Guardar el capítulo como visto en LocalStorage con animeId
+                var seenChapters = JSON.parse(localStorage.getItem('seenChapters')) || {};
+                if (!seenChapters[animeId]) {
+                    seenChapters[animeId] = [];
+                }
+                if (!seenChapters[animeId].includes(chapterId)) {
+                    seenChapters[animeId].push(chapterId);
+                    localStorage.setItem('seenChapters', JSON.stringify(seenChapters));
+                }
+
+                window.location.href = $this.attr('href'); // Open the link in the same window
+            }
+
+            Accordion.prototype.markChaptersAsSeen = function () {
+                var seenChapters = JSON.parse(localStorage.getItem('seenChapters')) || {};
+                $('.chapter-link').each(function () {
+                    var $this = $(this);
+                    var chapterId = $this.data('chapter');
+                    var animeId = $this.data('anime'); // Usamos el animeId
+
+                    if (seenChapters[animeId] && seenChapters[animeId].includes(chapterId)) {
+                        $this.addClass('visto');
+                        $this.find('.status').text('visto');
+                    }
+                });
+            }
+
+            Accordion.prototype.resetSeenChapters = function () {
+                // Limpiar LocalStorage
+                localStorage.removeItem('seenChapters');
+
+                // Limpiar la vista en la página
+                $('.chapter-link').removeClass('visto');
+                $('.chapter-link .status').text('');
+            }
+
+            var accordion = new Accordion($('#accordion'), false);
+        });
+    </script>
+</body>
+
+</html>
