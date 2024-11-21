@@ -32,7 +32,8 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
     { username: "Fernando", password: "Fer-123" },
     { username: "Wendy", password: "wencat0311" },
     { username: "Ludcary", password: "Kali8898" },
-    { username: "spwnx", password: "spawn1062004" },                
+    { username: "spwnx", password: "spawn1062004" }, 
+    { username: "Yesenia", password: "Yesenia" },                      
     { username: "Tonmy", password: "katerine89" }
   ];
 
